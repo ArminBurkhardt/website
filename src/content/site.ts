@@ -4,7 +4,7 @@ const de: Dict = {
   meta: {
     title: 'Armin Burkhardt',
     description:
-      'Informatikstudent in Tübingen. Projekte an der Schnittstelle von Quantitative Finance, maschinellem Lernen und Regulierung.',
+      'Informatikstudent in Tübingen. Projekte an der Schnittstelle von Quantitative Finance, maschinellem Lernen und branchenübergreifenden Anwendungen.',
   },
   a11y: {
     skipToContent: 'Zum Inhalt springen',
@@ -24,7 +24,7 @@ const de: Dict = {
     kicker: 'Informatikstudent · Tübingen',
     name: 'Armin Burkhardt',
     positioning:
-      'Ich baue an der Schnittstelle von Quantitative Finance, maschinellem Lernen und Regulierung.',
+      'Ich baue an der Schnittstelle von Quantitative Finance, maschinellem Lernen und branchenübergreifenden Anwendungen.',
     scroll: 'Scrollen',
   },
   intro: {
@@ -62,7 +62,7 @@ const en: Dict = {
   meta: {
     title: 'Armin Burkhardt',
     description:
-      'Computer science student in Tübingen. Projects at the intersection of quantitative finance, machine learning and regulation.',
+      'Computer science student in Tübingen. Projects at the intersection of quantitative finance, machine learning and interdisciplinary applications.',
   },
   a11y: {
     skipToContent: 'Skip to content',
@@ -82,7 +82,7 @@ const en: Dict = {
     kicker: 'Computer Science Student · Tübingen',
     name: 'Armin Burkhardt',
     positioning:
-      'I build at the intersection of quantitative finance, machine learning and regulation.',
+      'I build at the intersection of quantitative finance, machine learning and interdisciplinary applications.',
     scroll: 'Scroll',
   },
   intro: {

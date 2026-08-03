@@ -32,7 +32,7 @@ export default function Image() {
         </div>
         <div style={{ fontSize: 104, letterSpacing: -3, marginTop: 12 }}>Armin Burkhardt</div>
         <div style={{ fontSize: 32, color: '#a1a1aa', marginTop: 16 }}>
-          Quant Finance · Machine Learning · Regulation
+          Quant Finance · Machine Learning · Interdisciplinary Applications
         </div>
         <div style={{ height: 4, width: 120, background: '#fb4a6b', marginTop: 40 }} />
       </div>
