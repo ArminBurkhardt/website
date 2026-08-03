@@ -6,8 +6,8 @@ test('german is the default locale', () => {
   assert.equal(DEFAULT_LOCALE, 'de');
 });
 
-test('dark is the default theme', () => {
-  assert.equal(DEFAULT_THEME, 'dark');
+test('light is the default theme', () => {
+  assert.equal(DEFAULT_THEME, 'light');
 });
 
 test('every external link is an absolute https url', () => {

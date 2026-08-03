@@ -9,6 +9,10 @@ export type LatticeNode = {
   y: number;
   column: number;
   domain: Domain | null;
+  /** 0 sits far from the viewer, 1 sits near. Drives parallax, size and opacity. */
+  depth: number;
+  /** Offsets each node's idle drift so the field breathes instead of pulsing in unison. */
+  phase: number;
 };
 export type LatticeEdge = { id: string; from: string; to: string };
 export type LatticeLayout = { nodes: LatticeNode[]; edges: LatticeEdge[]; columns: number };
@@ -49,6 +53,8 @@ export function buildLattice(width: number, height: number, seed = DEFAULT_SEED)
         y: clamp(count === 1 ? height / 2 : top + step * row + jitterY, 0, height),
         column,
         domain: isTerminal ? (DOMAINS[row] ?? null) : null,
+        depth: random(),
+        phase: random() * Math.PI * 2,
       });
     }
   }

@@ -5,10 +5,13 @@ import type { Dict } from '@/content/types';
 import { DOMAINS } from '@/content/types';
 import { buildLattice, pathToDomain, type LatticeLayout } from './layout';
 import { advance, drawFrame, spawnParticle, MAX_PARTICLES, type Particle } from './draw';
+import { scrollProgress, stepSpring, trackEnergy, type Spring } from './scroll';
 import { useLatticeHover } from './LatticeContext';
 import styles from './Lattice.module.css';
 
-const FRAME_BUDGET = 1000 / 30;
+// The draw is a few hundred lines and dots; at 30fps the parallax reads as stepping rather
+// than gliding, so the loop runs at display rate.
+const FRAME_BUDGET = 1000 / 60;
 
 export function Lattice({ dict }: { dict: Dict }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,19 +48,43 @@ export function Lattice({ dict }: { dict: Dict }) {
 
     const random = Math.random;
 
+    // The scroll handler only records where we are; the animation frame does the spring, the
+    // energy and the drawing, so scrolling never triggers work of its own.
+    let targetProgress = 0;
+    let spring: Spring = { value: 0, velocity: 0 };
+    let energy = 0;
+    let elapsed = 0;
+
+    const readScroll = () => {
+      targetProgress = scrollProgress(
+        window.scrollY,
+        document.documentElement.scrollHeight,
+        window.innerHeight,
+      );
+    };
+
     const render = (delta: number) => {
       const highlight = domainRef.current
         ? pathToDomain(layout, domainRef.current)
         : new Set<string>();
       if (!reduced && delta > 0) {
-        particles = advance(particles, layout, delta, random);
+        const previous = spring.value;
+        spring = stepSpring(spring, targetProgress, delta);
+        energy = trackEnergy(energy, spring.value - previous, delta);
+        elapsed += delta;
+        particles = advance(particles, layout, delta, random, energy);
         while (particles.length < MAX_PARTICLES && random() < 0.08) {
           particles.push(spawnParticle(layout, random));
         }
       }
-      drawFrame(ctx, layout, particles, { faint, accent, opacity, highlight, dpr });
+      // Reduced motion parks the field at its midpoint with the drift switched off.
+      const motion = reduced
+        ? { progress: 0.5, time: 0, drift: 0 }
+        : { progress: spring.value, time: elapsed, drift: 1 };
+      drawFrame(ctx, layout, particles, { faint, accent, opacity, highlight, dpr, motion });
       frames += 1;
       canvas.setAttribute('data-frames', String(frames));
+      canvas.setAttribute('data-parallax', spring.value.toFixed(3));
     };
 
     renderRef.current = () => render(0);
@@ -68,6 +95,7 @@ export function Lattice({ dict }: { dict: Dict }) {
       canvas.width = Math.floor(rect.width * dpr);
       canvas.height = Math.floor(rect.height * dpr);
       layout = buildLattice(rect.width, rect.height);
+      readScroll(); // a resize changes the page height, so the progress denominator moves too
       render(0);
     };
 
@@ -118,6 +146,9 @@ export function Lattice({ dict }: { dict: Dict }) {
     resize();
     document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('resize', onResize, { passive: true });
+    // Reduced motion keeps the lattice still, so there is nothing for scrolling to drive.
+    if (!reduced) window.addEventListener('scroll', readScroll, { passive: true });
+    start();
 
     return () => {
       stop();
@@ -127,6 +158,7 @@ export function Lattice({ dict }: { dict: Dict }) {
       renderRef.current = null;
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', readScroll);
     };
   }, []);
 

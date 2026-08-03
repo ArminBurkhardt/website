@@ -24,7 +24,9 @@
   --fg-muted: #52525b;
   --fg-faint: #65656d;
   --rule: rgba(10, 10, 10, 0.1);
-  --accent: #e11d48;
+  /* Darkened a touch from the brand e11d48 - at 11px mono that hex clears only 4.49:1
+     against --bg, just under WCAG AA's 4.5:1 for the wip status label. */
+  --accent: #d61c44;
   --lattice: #71717a;
   --lattice-opacity: 0.16;
 }

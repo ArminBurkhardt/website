@@ -54,5 +54,7 @@ test('keyboard traversal reaches every interactive element in order', async ({ p
     );
   }
   expect(reached[0]).toContain('Zum Inhalt springen');
-  expect(reached.some((entry) => entry.includes('tiny-moe-llm'))).toBeTruthy();
+  // The trigger is named after the project title, not its id; textContent is truncated to
+  // 24 chars above, so match a prefix that survives the cut regardless of index digits.
+  expect(reached.some((entry) => entry.includes('Mixture-of-Expert'))).toBeTruthy();
 });

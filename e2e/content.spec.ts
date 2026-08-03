@@ -24,10 +24,12 @@ test('intro renders the label and all four facts', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Über mich' })).toBeVisible();
   const facts = page.getByTestId('fact');
   await expect(facts).toHaveCount(4);
-  await expect(page.getByText('B.Sc. Informatik, Universität Tübingen, 2024–2027')).toBeVisible();
+  await expect(page.getByText('B.Sc. Informatik, Universität Tübingen, 2024 - 2027')).toBeVisible();
 });
 
 test('english intro uses translated fact labels', async ({ page }) => {
   await page.goto('/en');
-  await expect(page.getByText('Student Research Assistant, IBMI Tübingen')).toBeVisible();
+  await expect(
+    page.getByText('Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen'),
+  ).toBeVisible();
 });
