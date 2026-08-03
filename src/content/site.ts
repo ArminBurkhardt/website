@@ -8,12 +8,17 @@ const de: Dict = {
   },
   a11y: {
     skipToContent: 'Zum Inhalt springen',
-    toTop: 'Zum Seitenanfang',
     themeToLight: 'Zur hellen Ansicht wechseln',
     themeToDark: 'Zur dunklen Ansicht wechseln',
     localeSwitch: 'Switch to English',
     latticeAlt:
       'Dekorative Darstellung eines Routing-Netzwerks mit den Endpunkten Quant, ML, Recht und Barrierefreiheit.',
+  },
+  notFound: {
+    metaTitle: 'Seite nicht gefunden — Armin Burkhardt',
+    heading: 'Seite nicht gefunden',
+    body: 'Diese Seite existiert nicht — oder nicht mehr.',
+    home: 'Zur Startseite',
   },
   hero: {
     kicker: 'Informatikstudent · Tübingen',
@@ -36,8 +41,6 @@ const de: Dict = {
   projects: {
     index: '02',
     label: 'Projekte',
-    expand: 'Details anzeigen',
-    collapse: 'Details ausblenden',
     repo: 'Repository',
     site: 'Website',
     statusLive: 'Live',
@@ -63,12 +66,17 @@ const en: Dict = {
   },
   a11y: {
     skipToContent: 'Skip to content',
-    toTop: 'Back to top',
     themeToLight: 'Switch to light appearance',
     themeToDark: 'Switch to dark appearance',
     localeSwitch: 'Auf Deutsch wechseln',
     latticeAlt:
       'Decorative rendering of a routing network terminating in Quant, ML, Law and Access.',
+  },
+  notFound: {
+    metaTitle: 'Page not found — Armin Burkhardt',
+    heading: 'Page not found',
+    body: 'This page does not exist — or does not exist any more.',
+    home: 'Back to the start page',
   },
   hero: {
     kicker: 'Computer Science Student · Tübingen',
@@ -91,8 +99,6 @@ const en: Dict = {
   projects: {
     index: '02',
     label: 'Projects',
-    expand: 'Show details',
-    collapse: 'Hide details',
     repo: 'Repository',
     site: 'Website',
     statusLive: 'Live',

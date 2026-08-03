@@ -39,7 +39,6 @@ export function Lattice({ dict }: { dict: Dict }) {
     let particles: Particle[] = [];
     let dpr = 1;
     let frames = 0;
-    let visible = true;
     let raf = 0;
     let last = 0;
     let accumulator = 0;
@@ -92,15 +91,10 @@ export function Lattice({ dict }: { dict: Dict }) {
       raf = 0;
     };
 
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry?.isIntersecting ?? false;
-      if (visible && !document.hidden) start();
-      else stop();
-    });
-    observer.observe(canvas);
-
+    // The canvas is fixed to the viewport, so it is always on screen — only a hidden tab
+    // is worth pausing for.
     const onVisibility = () => {
-      if (document.hidden || !visible) stop();
+      if (document.hidden) stop();
       else start();
     };
 
@@ -127,7 +121,7 @@ export function Lattice({ dict }: { dict: Dict }) {
 
     return () => {
       stop();
-      observer.disconnect();
+
       themeObserver.disconnect();
       clearTimeout(resizeTimer);
       renderRef.current = null;

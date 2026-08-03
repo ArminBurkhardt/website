@@ -37,19 +37,17 @@ export type Dict = {
   meta: { title: string; description: string };
   a11y: {
     skipToContent: string;
-    toTop: string;
     themeToLight: string;
     themeToDark: string;
     localeSwitch: string;
     latticeAlt: string;
   };
+  notFound: { metaTitle: string; heading: string; body: string; home: string };
   hero: { kicker: string; name: string; positioning: string; scroll: string };
   intro: { index: string; label: string; body: string; facts: Fact[] };
   projects: {
     index: string;
     label: string;
-    expand: string;
-    collapse: string;
     repo: string;
     site: string;
     statusLive: string;

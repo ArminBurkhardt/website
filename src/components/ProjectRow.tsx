@@ -57,7 +57,9 @@ export function ProjectRow({
         <span className={styles.sign} aria-hidden="true" />
       </button>
 
-      <div id={panelId} className={styles.panel} hidden={!open}>
+      {/* `hidden` keeps the closed panel out of the accessibility tree, which rules out a
+          height transition on this element — the inner content animates instead. */}
+      <div id={panelId} hidden={!open}>
         <div className={styles.panelInner}>
           <p className={styles.body}>{copy.body}</p>
           <ul className={styles.stack}>
