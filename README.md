@@ -43,7 +43,7 @@ All copy lives in `src/content`. Nothing needs touching in components.
 {
   id: 'my-project',
   year: '2026',
-  domain: 'ml',              // quant | ml | law | access — picks the lattice path that lights up on hover
+  domain: 'ml',              // quant | ml | law | access - picks the lattice path that lights up on hover
   status: 'wip',             // live | wip
   links: { repo: null, site: null },
   de: { title, tagline, body, stack: ['…'], pendingNote: '…' },
@@ -52,7 +52,7 @@ All copy lives in `src/content`. Nothing needs touching in components.
 ```
 
 **`links.repo: null` renders a "releasing soon" note instead of a link.** Paste a repository
-URL there and it becomes a real link — nothing else changes. The same applies to
+URL there and it becomes a real link - nothing else changes. The same applies to
 `links.site`. Use `pendingNote` to say something specific (e.g. "currently training");
 without it, the locale's `defaultPendingNote` is used.
 
@@ -70,20 +70,20 @@ so a missing key fails the build, and a test asserts the two key trees match exa
 
 `src/config/site.ts`:
 
-- `DEFAULT_THEME` — `'dark'` or `'light'`. The site loads with this; a blocking inline script
+- `DEFAULT_THEME` - `'dark'` or `'light'`. The site loads with this; a blocking inline script
   applies it before first paint, so there is no flash. `prefers-color-scheme` is deliberately
-  not consulted — the configured default wins until a visitor uses the toggle, and their
+  not consulted - the configured default wins until a visitor uses the toggle, and their
   choice then persists in `localStorage`.
 - `DEFAULT_LOCALE`, `SITE_URL`, and `LINKS` (LinkedIn and GitHub).
 
 ## Design notes
 
-Tokens live in `src/app/globals.css`. The rose `--accent` is deliberately scarce — the scroll
+Tokens live in `src/app/globals.css`. The rose `--accent` is deliberately scarce - the scroll
 progress bar, work-in-progress status tags, link underlines on hover, and the occasional
 routing packet. It is never used as a fill or on body text.
 
 The background canvas (`src/components/Lattice/`) is an ambient visualisation of sparse
-expert routing: particles enter from the left and are routed to one of four terminals —
+expert routing: particles enter from the left and are routed to one of four terminals -
 Quant, ML, Law, Access. Hovering a project row lights the path to that project's domain. The
 layout is generated from a fixed seed, so it renders identically on every load. The loop
 pauses off-screen and on hidden tabs, and `prefers-reduced-motion` reduces it to a single

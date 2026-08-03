@@ -13,24 +13,24 @@ test('a row expands and collapses, and its panel leaves the a11y tree when close
   page,
 }) => {
   await page.goto('/');
-  const trigger = page.getByRole('button', { name: /tiny-moe-llm/ });
+  const trigger = page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ });
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(page.getByText(/dichten Backbone im Gemma-Stil/)).toBeHidden();
+  await expect(page.getByText(/dense Gemma4-style Backbone/)).toBeHidden();
 
   await trigger.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByText(/dichten Backbone im Gemma-Stil/)).toBeVisible();
+  await expect(page.getByText(/dense Gemma4-style Backbone/)).toBeVisible();
 
   await trigger.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(page.getByText(/dichten Backbone im Gemma-Stil/)).toBeHidden();
+  await expect(page.getByText(/dense Gemma4-style Backbone/)).toBeHidden();
 });
 
 test('multiple rows can be open at once', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: /tiny-moe-llm/ }).click();
+  await page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ }).click();
   await page.getByRole('button', { name: /Assist/ }).click();
-  await expect(page.getByRole('button', { name: /tiny-moe-llm/ })).toHaveAttribute(
+  await expect(page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ })).toHaveAttribute(
     'aria-expanded',
     'true',
   );
@@ -42,23 +42,23 @@ test('multiple rows can be open at once', async ({ page }) => {
 
 test('a project with a repo shows a link, one without shows the pending note', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: /mike t-AI-son/ }).click();
+  await page.getByRole('button', { name: /HackTheLaw: mike t-AI-son/ }).click();
   await expect(page.getByRole('link', { name: /Repository/ })).toHaveAttribute(
     'href',
     'https://github.com/ArminBurkhardt/HackTheLaw',
   );
 
-  await page.getByRole('button', { name: /tiny-moe-llm/ }).click();
+  await page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ }).click();
   await expect(
     page.getByText(
-      'Aktuell im Training — das Repository wird veröffentlicht, sobald der Lauf durch ist.',
+      'Aktuell im Training - das Repository wird veröffentlicht, sobald der Lauf durch ist.',
     ),
   ).toBeVisible();
 });
 
 test('rows are operable by keyboard', async ({ page }) => {
   await page.goto('/');
-  const trigger = page.getByRole('button', { name: /tiny-moe-llm/ });
+  const trigger = page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ });
   await trigger.focus();
   await page.keyboard.press('Enter');
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');

@@ -15,9 +15,9 @@ const de: Dict = {
       'Dekorative Darstellung eines Routing-Netzwerks mit den Endpunkten Quant, ML, Recht und Barrierefreiheit.',
   },
   notFound: {
-    metaTitle: 'Seite nicht gefunden — Armin Burkhardt',
+    metaTitle: 'Seite nicht gefunden - Armin Burkhardt',
     heading: 'Seite nicht gefunden',
-    body: 'Diese Seite existiert nicht — oder nicht mehr.',
+    body: 'Diese Seite existiert nicht - oder nicht mehr.',
     home: 'Zur Startseite',
   },
   hero: {
@@ -30,11 +30,11 @@ const de: Dict = {
   intro: {
     index: '01',
     label: 'Über mich',
-    body: 'Ich studiere Informatik in Tübingen und arbeite als studentische Hilfskraft am IBMI. Am meisten interessiert mich, was passiert, wenn moderne Modelle in Bereiche kommen, in denen Fehler teuer sind — Handel, Recht, Regulierung. Parallel baue ich die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
+    body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Modelle in Bereiche kommen, in denen Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
     facts: [
-      { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024–2027' },
-      { label: 'Rolle', value: 'Studentische Hilfskraft, IBMI Tübingen' },
-      { label: 'Fokus', value: 'Quant Finance · Machine Learning · Regulierung' },
+      { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024 - 2027' },
+      { label: 'Rolle', value: 'Studentische Hilfskraft, Interfakultäres Institut für Biomedizinische Informatik (IBMI) Tübingen' },
+      { label: 'Fokus', value: 'Quant Finance · Machine Learning · Interdisziplinäres ML' },
       { label: 'Initiative', value: 'Tübingen Quant Society, Mitgründer' },
     ],
   },
@@ -73,9 +73,9 @@ const en: Dict = {
       'Decorative rendering of a routing network terminating in Quant, ML, Law and Access.',
   },
   notFound: {
-    metaTitle: 'Page not found — Armin Burkhardt',
+    metaTitle: 'Page not found - Armin Burkhardt',
     heading: 'Page not found',
-    body: 'This page does not exist — or does not exist any more.',
+    body: 'This page does not exist - or does not exist any more.',
     home: 'Back to the start page',
   },
   hero: {
@@ -88,11 +88,11 @@ const en: Dict = {
   intro: {
     index: '01',
     label: 'About',
-    body: 'I study computer science in Tübingen and work as a student research assistant at IBMI. What interests me most is what happens when modern models reach domains where mistakes are expensive — trading, law, regulation. Alongside that I am building the Tübingen Quant Society, a student initiative meant to close exactly that gap between theory and practice.',
+    body: 'I study computer science in Tübingen. What interests me most is what happens when modern models reach domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society, a student initiative meant to close exactly that gap between theory and practice.',
     facts: [
-      { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024–2027' },
-      { label: 'Role', value: 'Student Research Assistant, IBMI Tübingen' },
-      { label: 'Focus', value: 'Quant Finance · Machine Learning · Regulation' },
+      { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024 - 2027' },
+      { label: 'Role', value: 'Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen' },
+      { label: 'Focus', value: 'Quant Finance · Machine Learning · Interdisciplinary ML' },
       { label: 'Initiative', value: 'Tübingen Quant Society, Co-Founder' },
     ],
   },

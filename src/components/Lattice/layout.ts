@@ -13,7 +13,7 @@ export type LatticeNode = {
 export type LatticeEdge = { id: string; from: string; to: string };
 export type LatticeLayout = { nodes: LatticeNode[]; edges: LatticeEdge[]; columns: number };
 
-/** mulberry32 — small, fast, and reproducible across runs. */
+/** mulberry32 - small, fast, and reproducible across runs. */
 function rng(seed: number) {
   let state = seed >>> 0;
   return () => {

@@ -26,7 +26,7 @@ export function useTheme() {
       try {
         localStorage.setItem('theme', next);
       } catch {
-        /* storage unavailable — the attribute still applies for this session */
+        /* storage unavailable - the attribute still applies for this session */
       }
       return next;
     });

@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 /**
  * Entrance animations fade text in from opacity 0, and axe measures the composited
  * colour of whatever is on screen at that instant. Wait for every finite animation to
- * finish first — looping ones (the scroll cue) never settle, so they are excluded.
+ * finish first - looping ones (the scroll cue) never settle, so they are excluded.
  */
 async function settleAnimations(page: Page) {
   await page.waitForFunction(() =>

@@ -85,7 +85,7 @@ export function Chrome({ dict, locale }: { dict: Dict; locale: Locale }) {
         </nav>
       </header>
       <p className={`mono ${styles.marker}`} data-testid="section-marker" aria-hidden="true">
-        {markerIndex} / 03 — {dict.sections[SECTION_KEYS[activeId]]}
+        {markerIndex} / 03 - {dict.sections[SECTION_KEYS[activeId]]}
       </p>
     </>
   );

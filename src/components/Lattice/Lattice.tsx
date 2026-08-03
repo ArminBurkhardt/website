@@ -91,7 +91,7 @@ export function Lattice({ dict }: { dict: Dict }) {
       raf = 0;
     };
 
-    // The canvas is fixed to the viewport, so it is always on screen — only a hidden tab
+    // The canvas is fixed to the viewport, so it is always on screen - only a hidden tab
     // is worth pausing for.
     const onVisibility = () => {
       if (document.hidden) stop();

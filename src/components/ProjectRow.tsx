@@ -58,7 +58,7 @@ export function ProjectRow({
       </button>
 
       {/* `hidden` keeps the closed panel out of the accessibility tree, which rules out a
-          height transition on this element — the inner content animates instead. */}
+          height transition on this element - the inner content animates instead. */}
       <div id={panelId} hidden={!open}>
         <div className={styles.panelInner}>
           <p className={styles.body}>{copy.body}</p>

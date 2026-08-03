@@ -43,7 +43,7 @@ export function advance(
     }
     const edge = layout.edges.find((candidate) => candidate.id === particle.edgeId);
     const onward = edge ? layout.edges.filter((candidate) => candidate.from === edge.to) : [];
-    if (onward.length === 0) continue; // reached a terminal — retire it
+    if (onward.length === 0) continue; // reached a terminal - retire it
     const chosen = onward[Math.floor(random() * onward.length) % onward.length];
     if (chosen) next.push({ ...particle, edgeId: chosen.id, t: t - 1 });
   }

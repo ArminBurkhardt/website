@@ -1,11 +1,11 @@
-# arminburkhardt.com — Design Spec
+# arminburkhardt.com - Design Spec
 
 Date: 2026-08-03
 Status: approved design, ready for implementation planning
 
 ## 1. Purpose
 
-A personal portfolio at `arminburkhardt.com` for Armin Burkhardt — B.Sc. Informatik student
+A personal portfolio at `arminburkhardt.com` for Armin Burkhardt - B.Sc. Informatik student
 in Tübingen, working across quantitative finance, machine learning and financial regulation.
 
 **Primary audience:** potential co-founders and collaborators trying to work out what makes
@@ -17,7 +17,7 @@ builds, and how to reach him.
 **Success criteria**
 - A stranger understands his focus areas within five seconds of landing.
 - Every project is legible without expanding it, and rewards expanding it.
-- The site feels designed, not templated — distinct character, no stock hero.
+- The site feels designed, not templated - distinct character, no stock hero.
 - Loads fast on mobile, works with JavaScript motion disabled, reads correctly in both
   German and English.
 
@@ -25,7 +25,7 @@ builds, and how to reach him.
 
 - No CMS, no blog, no contact form, no analytics, no cookies.
 - No backend of any kind: no route handlers, no middleware, no server actions.
-- No Impressum or privacy page (explicit decision — purely private page).
+- No Impressum or privacy page (explicit decision - purely private page).
 - No dedicated project detail pages; projects expand in place.
 - No email address on the page. LinkedIn and GitHub are the only contact paths.
 
@@ -34,7 +34,7 @@ builds, and how to reach him.
 | Concern | Choice | Reason |
 | --- | --- | --- |
 | Framework | Next.js App Router, TypeScript | Matches the stack Armin already runs for tuequant.de |
-| Rendering | Fully static (SSG) — every route prerendered | Vercel serves CDN assets only; nothing serverless to pay for or debug |
+| Rendering | Fully static (SSG) - every route prerendered | Vercel serves CDN assets only; nothing serverless to pay for or debug |
 | Styling | CSS Modules + CSS custom properties | No utility-class noise, themeable via variables, zero runtime |
 | Motion | Hand-rolled: CSS transitions + one `IntersectionObserver` hook + one `<canvas>` | No animation dependency; total motion code stays under ~200 lines |
 | Fonts | Geist Sans + Geist Mono, self-hosted | Zero external requests, crisp geometric character |
@@ -52,7 +52,7 @@ Single-page scroll, two prerendered locales:
 | `/en` | English | Full translation |
 
 Both routes render the same `<Page>` component with a different dictionary. The language
-toggle is an `<a>` to the other locale — a real, shareable, indexable URL, not client state.
+toggle is an `<a>` to the other locale - a real, shareable, indexable URL, not client state.
 `<html lang>` is set per route; each route emits `alternate` links to the other locale.
 
 **Sections** (in scroll order): Hero → Intro → Projects → Links → Footer.
@@ -110,7 +110,7 @@ type ProjectCopy = {
 disabled link. Pasting a URL turns it into a link with no other change. A unit test enforces
 that `status: 'wip'` entries either supply `pendingNote` or fall back to the default note.
 
-**Initial entries** (years marked ⚠ are my assumption — confirm during review):
+**Initial entries** (years marked ⚠ are my assumption - confirm during review):
 
 | id | year | domain | status | repo | site |
 | --- | --- | --- | --- | --- | --- |
@@ -121,15 +121,15 @@ that `status: 'wip'` entries either supply `pendingNote` or fall back to the def
 
 Draft copy (DE, to be refined in implementation):
 
-- **Tübingen Quant Society** — „Studentische Initiative für Quantitative Finance und
+- **Tübingen Quant Society** - „Studentische Initiative für Quantitative Finance und
   algorithmischen Handel, mitgegründet in Tübingen." Body covers the initiative itself plus
   the bilingual Next.js site with SAML-2.0-Uni-Login that he built for it.
-- **mike t-AI-son** — „Adversariales Trainingstool für juristische Argumentation, gebaut bei
+- **mike t-AI-son** - „Adversariales Trainingstool für juristische Argumentation, gebaut bei
   HackTheLaw Cambridge." Body covers Legoras „The Sparring Room"-Challenge, FastAPI + React.
-- **tiny-moe-llm** — „Sprachmodell mit ~243M Parametern und einer geloopten, spärlich
+- **tiny-moe-llm** - „Sprachmodell mit ~243M Parametern und einer geloopten, spärlich
   gerouteten Mixture-of-Experts-Architektur." Body covers heterogene Experten, Multi-Token-Prediction,
   FP8/NVFP4-Training. Status WIP: „aktuell im Training".
-- **Assist** — „Sprachgesteuerter Android-Assistent für blinde und sehbeeinträchtigte
+- **Assist** - „Sprachgesteuerter Android-Assistent für blinde und sehbeeinträchtigte
   Nutzer:innen." Body covers on-device tools, LLM-Aktionen, deutsche TTS-Ausgabe.
 
 ### 5.3 `src/content/site.ts`
@@ -160,13 +160,13 @@ Dark is the default. Both themes are defined as CSS custom properties on `:root`
 | `--rule` | `rgba(250,250,249,0.10)` | `rgba(10,10,10,0.10)` |
 | `--accent` | `#FB4A6B` | `#E11D48` |
 
-The accent is rose, deliberately scarce — it may appear on **at most three things at once**:
+The accent is rose, deliberately scarce - it may appear on **at most three things at once**:
 the active routing packet in the lattice, the current-section tick, and a link underline on
 hover/focus. Never as a fill, never on text blocks.
 
 **Theme persistence:** a small blocking inline script in `<head>` reads
 `localStorage.theme`, falls back to `DEFAULT_THEME`, and sets `data-theme` on `<html>`
-before first paint — no flash. `prefers-color-scheme` is deliberately *not* consulted; the
+before first paint - no flash. `prefers-color-scheme` is deliberately *not* consulted; the
 configured default wins until the user toggles.
 
 ### 6.2 Typography
@@ -200,7 +200,7 @@ drawn, the arrow stops tracking, and the lattice renders exactly one static fram
 ## 7. The routing lattice
 
 The single distinctive element, and the reason the site is his rather than generic: an
-ambient visualization of sparse expert routing — the architecture of his own tiny-moe-llm —
+ambient visualization of sparse expert routing - the architecture of his own tiny-moe-llm -
 used as the structural metaphor for a person who routes between four domains.
 
 **Behaviour**
@@ -232,8 +232,8 @@ Wordmark `Armin Burkhardt` top-left (mono, small, links to top). Top-right: them
 (sun/moon, 24px, `aria-label` from dictionary) and `DE / EN` where the inactive locale is a
 link and the active one is plain text with `aria-current="true"`. A 1px progress bar spans
 the top edge, filled in `--accent` proportional to scroll. Bottom-right, a mono marker
-cross-fades as sections change, using the same numbering as the section labels — hero is
-`00 — START`, so the marker reads `02 / 03 — PROJEKTE` over the projects section. The chrome
+cross-fades as sections change, using the same numbering as the section labels - hero is
+`00 - START`, so the marker reads `02 / 03 - PROJEKTE` over the projects section. The chrome
 remains fully visible under reduced motion; only its transitions are dropped.
 
 ### 8.2 Hero
@@ -243,26 +243,26 @@ regulation. A mono `SCROLL` cue at the bottom with a 2px line that breathes vert
 Entrance: kicker, name, line, cue reveal in sequence at 80ms stagger on load.
 
 ### 8.3 Intro
-Section label `01 — ÜBER MICH`. Two to three sentences in first person, then a four-cell
+Section label `01 - ÜBER MICH`. Two to three sentences in first person, then a four-cell
 fact grid, each cell a mono label over a value:
 Studium (B.Sc. Informatik, Universität Tübingen, 2024–2027) · Rolle (Studentische Hilfskraft,
 IBMI Tübingen) · Fokus (Quant Finance · ML · Regulierung) · Initiative (Tübingen Quant
 Society, Mitgründer).
 
 ### 8.4 Projects
-Section label `02 — PROJEKTE`. Rows separated by hairlines. Collapsed row:
+Section label `02 - PROJEKTE`. Rows separated by hairlines. Collapsed row:
 mono index (`01`), title, tagline, and right-aligned year plus status tag (`LIVE` / `WIP`,
 WIP in accent). The whole row is a `<button>` with `aria-expanded` and
 `aria-controls`; a `+` rotates to `×` when open.
 
 Expanded panel reveals body copy, stack chips (mono, hairline-bordered), and the link row:
 repo and/or site as arrow links, or the pending note when `repo` and `site` are both null.
-Multiple rows may be open at once — no forced accordion collapse.
+Multiple rows may be open at once - no forced accordion collapse.
 
 Hovering or focusing a row lights the corresponding lattice path (section 7).
 
 ### 8.5 Links
-Section label `03 — KONTAKT`. LinkedIn and GitHub as two oversized rows (display type,
+Section label `03 - KONTAKT`. LinkedIn and GitHub as two oversized rows (display type,
 hairline-separated) with a trailing `↗` that eases toward the cursor on hover.
 `target="_blank"` with `rel="noopener noreferrer"`.
 

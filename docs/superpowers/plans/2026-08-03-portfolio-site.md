@@ -4,7 +4,7 @@
 
 **Goal:** Build a bilingual, statically prerendered personal portfolio at `arminburkhardt.com` with an ambient "expert routing" canvas as its signature element, deployed on Vercel.
 
-**Architecture:** Next.js App Router with two prerendered routes — `/` (German) and `/en` (English) — both rendering one `<Site locale>` component against a typed dictionary. All copy lives in `src/content`; all tunables in `src/config`. Motion is hand-rolled (CSS transitions + one `IntersectionObserver` hook + one `<canvas>`), no animation library. No route handlers, no middleware, no server actions: every route must appear as `○ (Static)` in the build output.
+**Architecture:** Next.js App Router with two prerendered routes - `/` (German) and `/en` (English) - both rendering one `<Site locale>` component against a typed dictionary. All copy lives in `src/content`; all tunables in `src/config`. Motion is hand-rolled (CSS transitions + one `IntersectionObserver` hook + one `<canvas>`), no animation library. No route handlers, no middleware, no server actions: every route must appear as `○ (Static)` in the build output.
 
 **Tech Stack:** Next.js 16.2.12, React 19.2.8, TypeScript 5.9, CSS Modules + custom properties, `geist` 1.7 fonts via `next/font`, `node:test` + `tsx` for unit tests, Playwright 1.62 + `@axe-core/playwright` for e2e.
 
@@ -17,7 +17,7 @@ Reference spec: `docs/superpowers/specs/2026-08-03-portfolio-site-design.md`.
 - **German is the default locale.** `/` is German, `/en` is English. The locale toggle is an `<a>` to a real URL, never client state.
 - **No email address anywhere on the site.** LinkedIn and GitHub are the only contact paths.
 - **No Impressum, no privacy page, no analytics, no cookies, no contact form.**
-- **Accent discipline:** `--accent` may appear on at most three things at once — active routing packet, current-section tick, link underline on hover/focus. Never as a fill, never on body text.
+- **Accent discipline:** `--accent` may appear on at most three things at once - active routing packet, current-section tick, link underline on hover/focus. Never as a fill, never on body text.
 - **Motion:** 400–700ms, `cubic-bezier(0.16, 1, 0.3, 1)`, 60ms stagger. Every animation must be disabled under `prefers-reduced-motion: reduce`.
 - **No new runtime dependencies** beyond `next`, `react`, `react-dom`, `geist`. Anything else is a devDependency.
 - **Every component file stays under ~150 lines.** Co-locate a `.module.css` per component.
@@ -29,7 +29,7 @@ Reference spec: `docs/superpowers/specs/2026-08-03-portfolio-site-design.md`.
 | --- | --- |
 | `src/config/site.ts` | Tunables: default locale, default theme, external links |
 | `src/content/types.ts` | `Locale`, `Domain`, `Status`, `Project`, `Dict` types |
-| `src/content/projects.ts` | The four project entries — the file Armin edits |
+| `src/content/projects.ts` | The four project entries - the file Armin edits |
 | `src/content/site.ts` | `de` / `en` dictionaries |
 | `src/app/layout.tsx` | HTML shell, fonts, blocking theme script, metadata |
 | `src/app/page.tsx`, `src/app/en/page.tsx` | The two locale routes |
@@ -56,7 +56,7 @@ Reference spec: `docs/superpowers/specs/2026-08-03-portfolio-site-design.md`.
 ### Task 1: Scaffold and configuration
 
 **Files:**
-- Create: `package.json`, `tsconfig.json`, `next.config.ts`, `.gitignore` (exists — verify), `src/config/site.ts`
+- Create: `package.json`, `tsconfig.json`, `next.config.ts`, `.gitignore` (exists - verify), `src/config/site.ts`
 - Test: `src/config/site.test.ts`
 
 **Interfaces:**
@@ -193,7 +193,7 @@ test('site url is the production domain', () => {
 - [ ] **Step 6: Run the test to verify it fails**
 
 Run: `npm test`
-Expected: FAIL — cannot resolve `./site.ts`.
+Expected: FAIL - cannot resolve `./site.ts`.
 
 - [ ] **Step 7: Write the implementation**
 
@@ -319,7 +319,7 @@ test('tiny-moe-llm ships as work in progress without a repo link', () => {
 - [ ] **Step 2: Run the test to verify it fails**
 
 Run: `npm test`
-Expected: FAIL — cannot resolve `./projects.ts`.
+Expected: FAIL - cannot resolve `./projects.ts`.
 
 - [ ] **Step 3: Write `src/content/types.ts`**
 
@@ -365,7 +365,7 @@ import type { Project } from './types.ts';
 
 /**
  * The file to edit when a project changes.
- * `links.repo: null` renders a "releasing soon" note instead of a link —
+ * `links.repo: null` renders a "releasing soon" note instead of a link -
  * paste a URL and it becomes a link, nothing else needs to change.
  */
 export const projects: readonly Project[] = [
@@ -378,13 +378,13 @@ export const projects: readonly Project[] = [
     de: {
       title: 'Tübingen Quant Society',
       tagline: 'Studentische Initiative für Quantitative Finance und algorithmischen Handel.',
-      body: 'Mitgegründet in Tübingen, um Studierenden praktischen Zugang zu quantitativer Finanzwirtschaft zu geben — von Marktmikrostruktur über Backtesting bis zum eigenen Strategieentwurf. Für die Initiative habe ich die zweisprachige Website gebaut: Next.js App Router, statisch ausgeliefert, mit einem SAML-2.0-Service-Provider für das Login über die Universität.',
+      body: 'Mitgegründet in Tübingen, um Studierenden praktischen Zugang zu quantitativer Finanzwirtschaft zu geben - von Marktmikrostruktur über Backtesting bis zum eigenen Strategieentwurf. Für die Initiative habe ich die zweisprachige Website gebaut: Next.js App Router, statisch ausgeliefert, mit einem SAML-2.0-Service-Provider für das Login über die Universität.',
       stack: ['Next.js', 'TypeScript', 'SAML 2.0', 'Vercel'],
     },
     en: {
       title: 'Tübingen Quant Society',
       tagline: 'Student initiative for quantitative finance and algorithmic trading.',
-      body: 'Co-founded in Tübingen to give students hands-on access to quantitative finance — from market microstructure through backtesting to designing their own strategies. I built the initiative’s bilingual website: Next.js App Router, statically served, with a SAML 2.0 service provider for university login.',
+      body: 'Co-founded in Tübingen to give students hands-on access to quantitative finance - from market microstructure through backtesting to designing their own strategies. I built the initiative’s bilingual website: Next.js App Router, statically served, with a SAML 2.0 service provider for university login.',
       stack: ['Next.js', 'TypeScript', 'SAML 2.0', 'Vercel'],
     },
   },
@@ -397,13 +397,13 @@ export const projects: readonly Project[] = [
     de: {
       title: 'mike t-AI-son',
       tagline: 'Adversariales Trainingstool für juristische Argumentation.',
-      body: 'Gebaut bei HackTheLaw in Cambridge für Legoras Challenge „The Sparring Room“. Statt Antworten zu liefern, greift das System die Argumentation der Nutzer:innen an und zwingt sie, ihre Position zu verteidigen — juristisches Sparring statt Recherche-Assistent. Python-Backend mit FastAPI, Frontend mit React und Vite.',
+      body: 'Gebaut bei HackTheLaw in Cambridge für Legoras Challenge „The Sparring Room“. Statt Antworten zu liefern, greift das System die Argumentation der Nutzer:innen an und zwingt sie, ihre Position zu verteidigen - juristisches Sparring statt Recherche-Assistent. Python-Backend mit FastAPI, Frontend mit React und Vite.',
       stack: ['Python', 'FastAPI', 'React', 'Vite', 'LLMs'],
     },
     en: {
       title: 'mike t-AI-son',
       tagline: 'An adversarial training tool for legal argument.',
-      body: 'Built at HackTheLaw in Cambridge for Legora’s "The Sparring Room" challenge. Rather than answering questions, the system attacks the user’s reasoning and forces them to defend their position — legal sparring instead of a research assistant. Python backend on FastAPI, frontend in React and Vite.',
+      body: 'Built at HackTheLaw in Cambridge for Legora’s "The Sparring Room" challenge. Rather than answering questions, the system attacks the user’s reasoning and forces them to defend their position - legal sparring instead of a research assistant. Python backend on FastAPI, frontend in React and Vite.',
       stack: ['Python', 'FastAPI', 'React', 'Vite', 'LLMs'],
     },
   },
@@ -416,16 +416,16 @@ export const projects: readonly Project[] = [
     de: {
       title: 'tiny-moe-llm',
       tagline: 'Sprachmodell mit ~243M Parametern und geloopter Mixture-of-Experts-Architektur.',
-      body: 'Ein experimentelles Modell auf einem dichten Backbone im Gemma-Stil: Ein einziger MoE-Block wird mehrfach durchlaufen und routet die Tokens bei jedem Durchgang neu. Heterogene Experten — Self-Attention, Cross-Attention, Retrieval und MLP — teilen sich einen Router, dazu ein Identity-Expert, mit dem ein Token das Routing früh verlassen kann. Multi-Token-Prediction als Zusatzziel, Training in FP8 und NVFP4.',
+      body: 'Ein experimentelles Modell auf einem dichten Backbone im Gemma-Stil: Ein einziger MoE-Block wird mehrfach durchlaufen und routet die Tokens bei jedem Durchgang neu. Heterogene Experten - Self-Attention, Cross-Attention, Retrieval und MLP - teilen sich einen Router, dazu ein Identity-Expert, mit dem ein Token das Routing früh verlassen kann. Multi-Token-Prediction als Zusatzziel, Training in FP8 und NVFP4.',
       stack: ['PyTorch', 'Transformer Engine', 'CUDA', 'MoE'],
-      pendingNote: 'Aktuell im Training — das Repository wird veröffentlicht, sobald der Lauf durch ist.',
+      pendingNote: 'Aktuell im Training - das Repository wird veröffentlicht, sobald der Lauf durch ist.',
     },
     en: {
       title: 'tiny-moe-llm',
       tagline: 'A ~243M-parameter language model with a looped mixture-of-experts architecture.',
-      body: 'An experimental model on a dense Gemma-style backbone: a single MoE block is applied for several iterations, rerouting tokens on every pass. Heterogeneous experts — self-attention, cross-attention, retrieval and MLP — share one router, plus an identity expert that lets a token exit routing early. Multi-token prediction as an auxiliary objective, trained in FP8 and NVFP4.',
+      body: 'An experimental model on a dense Gemma-style backbone: a single MoE block is applied for several iterations, rerouting tokens on every pass. Heterogeneous experts - self-attention, cross-attention, retrieval and MLP - share one router, plus an identity expert that lets a token exit routing early. Multi-token prediction as an auxiliary objective, trained in FP8 and NVFP4.',
       stack: ['PyTorch', 'Transformer Engine', 'CUDA', 'MoE'],
-      pendingNote: 'Currently training — the repository goes public once the run completes.',
+      pendingNote: 'Currently training - the repository goes public once the run completes.',
     },
   },
   {
@@ -437,16 +437,16 @@ export const projects: readonly Project[] = [
     de: {
       title: 'Assist',
       tagline: 'Sprachgesteuerter Android-Assistent für blinde und sehbeeinträchtigte Nutzer:innen.',
-      body: 'Alles, was sonst einen Blick auf den Bildschirm braucht — Wetter, Navigation, Kalender, Nachrichten, Wecker, Geräteeinstellungen, die Kamera als Beschreibung der Umgebung — läuft über ein Gespräch. Ein LLM entscheidet, welches der On-Device-Tools es aufruft und handelt stellvertretend; die Antworten sind auf deutsche Sprachausgabe zugeschnitten und vermeiden visuelle Formulierungen.',
+      body: 'Alles, was sonst einen Blick auf den Bildschirm braucht - Wetter, Navigation, Kalender, Nachrichten, Wecker, Geräteeinstellungen, die Kamera als Beschreibung der Umgebung - läuft über ein Gespräch. Ein LLM entscheidet, welches der On-Device-Tools es aufruft und handelt stellvertretend; die Antworten sind auf deutsche Sprachausgabe zugeschnitten und vermeiden visuelle Formulierungen.',
       stack: ['Android', 'Kotlin', 'LLM Tool-Use', 'TTS'],
-      pendingNote: 'Universitäres Teamprojekt — das Repository ist derzeit nicht öffentlich.',
+      pendingNote: 'Universitäres Teamprojekt - das Repository ist derzeit nicht öffentlich.',
     },
     en: {
       title: 'Assist',
       tagline: 'A voice-first Android assistant for blind and visually impaired users.',
-      body: 'Everything that would normally need a glance at the screen — weather, directions, calendar, messages, alarms, device settings, the camera as a description of your surroundings — happens through conversation. An LLM decides which of the on-device tools to call and acts on the user’s behalf; replies are shaped for German text-to-speech and avoid visual language.',
+      body: 'Everything that would normally need a glance at the screen - weather, directions, calendar, messages, alarms, device settings, the camera as a description of your surroundings - happens through conversation. An LLM decides which of the on-device tools to call and acts on the user’s behalf; replies are shaped for German text-to-speech and avoid visual language.',
       stack: ['Android', 'Kotlin', 'LLM Tool-Use', 'TTS'],
-      pendingNote: 'University team project — the repository is not public at the moment.',
+      pendingNote: 'University team project - the repository is not public at the moment.',
     },
   },
 ];
@@ -571,7 +571,7 @@ test('each locale supplies exactly four facts', () => {
 - [ ] **Step 3: Run the test to verify it fails**
 
 Run: `npm test`
-Expected: FAIL — cannot resolve `./site.ts`.
+Expected: FAIL - cannot resolve `./site.ts`.
 
 - [ ] **Step 4: Write `src/content/site.ts`**
 
@@ -602,7 +602,7 @@ const de: Dict = {
   intro: {
     index: '01',
     label: 'Über mich',
-    body: 'Ich studiere Informatik in Tübingen und arbeite als studentische Hilfskraft am IBMI. Am meisten interessiert mich, was passiert, wenn moderne Modelle in Bereiche kommen, in denen Fehler teuer sind — Handel, Recht, Regulierung. Parallel baue ich die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
+    body: 'Ich studiere Informatik in Tübingen und arbeite als studentische Hilfskraft am IBMI. Am meisten interessiert mich, was passiert, wenn moderne Modelle in Bereiche kommen, in denen Fehler teuer sind - Handel, Recht, Regulierung. Parallel baue ich die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
     facts: [
       { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024–2027' },
       { label: 'Rolle', value: 'Studentische Hilfskraft, IBMI Tübingen' },
@@ -656,7 +656,7 @@ const en: Dict = {
   intro: {
     index: '01',
     label: 'About',
-    body: 'I study computer science in Tübingen and work as a student research assistant at IBMI. What interests me most is what happens when modern models reach domains where mistakes are expensive — trading, law, regulation. Alongside that I am building the Tübingen Quant Society, a student initiative meant to close exactly that gap between theory and practice.',
+    body: 'I study computer science in Tübingen and work as a student research assistant at IBMI. What interests me most is what happens when modern models reach domains where mistakes are expensive - trading, law, regulation. Alongside that I am building the Tübingen Quant Society, a student initiative meant to close exactly that gap between theory and practice.',
     facts: [
       { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024–2027' },
       { label: 'Role', value: 'Student Research Assistant, IBMI Tübingen' },
@@ -764,7 +764,7 @@ test('german is served at / and english at /en', async ({ page }) => {
 - [ ] **Step 3: Run it to verify it fails**
 
 Run: `npx playwright install --with-deps chromium && npm run e2e`
-Expected: FAIL — build fails, there is no app directory yet.
+Expected: FAIL - build fails, there is no app directory yet.
 
 - [ ] **Step 4: Write `src/app/globals.css`**
 
@@ -842,7 +842,7 @@ a { color: inherit; }
 - [ ] **Step 5: Create the route-group structure**
 
 `<html lang>` has to differ between the two locales, and reading the request (via `headers()`)
-would opt the routes out of static rendering — which violates a global constraint. Next
+would opt the routes out of static rendering - which violates a global constraint. Next
 supports exactly one root layout *per route group*, so use two groups:
 
 ```
@@ -861,7 +861,7 @@ Route groups in parentheses do not appear in the URL, so `(de)/page.tsx` serves 
 - [ ] **Step 6: Write `src/app/shell.tsx` and the two layouts**
 
 The theme script must be blocking and inline so there is no flash. It reads `localStorage`
-first and falls back to `DEFAULT_THEME` — never `prefers-color-scheme`. Keeping it in one
+first and falls back to `DEFAULT_THEME` - never `prefers-color-scheme`. Keeping it in one
 shared shell means the script exists in exactly one place.
 
 ```tsx
@@ -885,7 +885,7 @@ export function Shell({ lang, children }: { lang: 'de' | 'en'; children: React.R
 }
 ```
 
-Each layout also carries the `metadataBase` and `viewport` exports — a root layout is the only
+Each layout also carries the `metadataBase` and `viewport` exports - a root layout is the only
 place they can live, and there is one per route group:
 
 ```tsx
@@ -999,7 +999,7 @@ export function useTheme() {
       try {
         localStorage.setItem('theme', next);
       } catch {
-        /* storage unavailable — the attribute still applies for this session */
+        /* storage unavailable - the attribute still applies for this session */
       }
       return next;
     });
@@ -1126,7 +1126,7 @@ test('hero occupies the first viewport', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- content.spec.ts`
-Expected: FAIL — kicker text not found.
+Expected: FAIL - kicker text not found.
 
 - [ ] **Step 3: Write `src/hooks/useReveal.ts`**
 
@@ -1230,7 +1230,7 @@ git commit -m "feat: add hero section and reveal hook"
 - Consumes: `Dict`, `useReveal`
 - Produces: `<SectionHeading index={string} label={string} id={string} />`; `<Intro dict={Dict} />` rendering `<section id="intro">`
 
-- [ ] **Step 1: Write the failing test** — append to `e2e/content.spec.ts`:
+- [ ] **Step 1: Write the failing test** - append to `e2e/content.spec.ts`:
 
 ```ts
 test('intro renders the label and all four facts', async ({ page }) => {
@@ -1250,7 +1250,7 @@ test('english intro uses translated fact labels', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- content.spec.ts`
-Expected: FAIL — heading "Über mich" not found.
+Expected: FAIL - heading "Über mich" not found.
 
 - [ ] **Step 3: Write `src/components/SectionHeading.tsx`**
 
@@ -1390,7 +1390,7 @@ test('a project with a repo shows a link, one without shows the pending note', a
   );
 
   await page.getByRole('button', { name: /tiny-moe-llm/ }).click();
-  await expect(page.getByText('Aktuell im Training — das Repository wird veröffentlicht, sobald der Lauf durch ist.')).toBeVisible();
+  await expect(page.getByText('Aktuell im Training - das Repository wird veröffentlicht, sobald der Lauf durch ist.')).toBeVisible();
 });
 
 test('rows are operable by keyboard', async ({ page }) => {
@@ -1413,7 +1413,7 @@ test('external project links are safely targeted', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- projects.spec.ts`
-Expected: FAIL — no `project-row` test ids.
+Expected: FAIL - no `project-row` test ids.
 
 - [ ] **Step 3: Write `src/components/ProjectRow.tsx`**
 
@@ -1513,7 +1513,7 @@ export function ProjectRow({
 Note on the `hidden` attribute: because `hidden` removes the element from rendering, the
 `0fr → 1fr` transition cannot run on the same element. Resolve it by keeping `hidden` and
 animating only the inner content's `opacity`/`translateY`, or by swapping `hidden` for
-`inert` + `aria-hidden` after the collapse transition ends. **Pick the first option** — it is
+`inert` + `aria-hidden` after the collapse transition ends. **Pick the first option** - it is
 simpler and the e2e test asserts `toBeHidden()`, which `hidden` satisfies unambiguously.
 
 - [ ] **Step 4: Write `src/components/Projects.tsx`**
@@ -1651,7 +1651,7 @@ test('footer shows the copyright line', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- links.spec.ts`
-Expected: FAIL — LinkedIn link not found.
+Expected: FAIL - LinkedIn link not found.
 
 - [ ] **Step 3: Write `src/components/Links.tsx`**
 
@@ -1804,7 +1804,7 @@ test('the skip link moves focus to the content', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- chrome.spec.ts`
-Expected: FAIL — no `locale-toggle` test id.
+Expected: FAIL - no `locale-toggle` test id.
 
 - [ ] **Step 3: Write `src/hooks/useActiveSection.ts`**
 
@@ -1917,7 +1917,7 @@ export function Chrome({ dict, locale }: { dict: Dict; locale: Locale }) {
         </nav>
       </header>
       <p className={`mono ${styles.marker}`} data-testid="section-marker" aria-hidden="true">
-        {markerIndex} / 03 — {dict.sections[active === '' ? 'start' : (active as keyof Dict['sections'])]}
+        {markerIndex} / 03 - {dict.sections[active === '' ? 'start' : (active as keyof Dict['sections'])]}
       </p>
     </>
   );
@@ -1942,7 +1942,7 @@ on hover.
 - [ ] **Step 7: Run the full e2e suite**
 
 Run: `npm run e2e`
-Expected: PASS — including the earlier `theme.spec.ts`, which still targets `theme-toggle`.
+Expected: PASS - including the earlier `theme.spec.ts`, which still targets `theme-toggle`.
 
 - [ ] **Step 8: Commit**
 
@@ -1966,7 +1966,7 @@ git commit -m "feat: add fixed chrome with locale, theme and scroll progress"
   - `type LatticeEdge = { id: string; from: string; to: string }`
   - `type LatticeLayout = { nodes: LatticeNode[]; edges: LatticeEdge[]; columns: number }`
   - `function buildLattice(width: number, height: number, seed?: number): LatticeLayout`
-  - `function pathToDomain(layout: LatticeLayout, domain: Domain): Set<string>` — returns edge ids on one path from a source node to that domain's terminal
+  - `function pathToDomain(layout: LatticeLayout, domain: Domain): Set<string>` - returns edge ids on one path from a source node to that domain's terminal
   - `const LATTICE_COLUMNS = 5`
 
 - [ ] **Step 1: Write the failing test**
@@ -2052,12 +2052,12 @@ test('degenerate sizes do not throw', () => {
 
 Note: `node:test` will not resolve the `@/` alias. Add to `package.json` scripts a
 `--import` of a tiny loader, or simply use a relative import `../../content/types.ts` in this
-test file. **Use the relative import** — no loader configuration needed.
+test file. **Use the relative import** - no loader configuration needed.
 
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm test`
-Expected: FAIL — cannot resolve `./layout.ts`.
+Expected: FAIL - cannot resolve `./layout.ts`.
 
 - [ ] **Step 3: Write `src/components/Lattice/layout.ts`**
 
@@ -2071,7 +2071,7 @@ export type LatticeNode = { id: string; x: number; y: number; column: number; do
 export type LatticeEdge = { id: string; from: string; to: string };
 export type LatticeLayout = { nodes: LatticeNode[]; edges: LatticeEdge[]; columns: number };
 
-/** mulberry32 — small, fast, and reproducible across runs. */
+/** mulberry32 - small, fast, and reproducible across runs. */
 function rng(seed: number) {
   let state = seed >>> 0;
   return () => {
@@ -2248,11 +2248,11 @@ test('accent share stays a small minority', () => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm test`
-Expected: FAIL — cannot resolve `./draw.ts`.
+Expected: FAIL - cannot resolve `./draw.ts`.
 
 - [ ] **Step 3: Write `src/components/Lattice/draw.ts`**
 
-`drawFrame` takes explicit colours so it never reads CSS itself — the component resolves
+`drawFrame` takes explicit colours so it never reads CSS itself - the component resolves
 `--fg-faint` and `--accent` from `getComputedStyle` and passes them in, which keeps this
 module pure and testable under `node:test`.
 
@@ -2302,7 +2302,7 @@ export function advance(
     }
     const edge = layout.edges.find((candidate) => candidate.id === particle.edgeId);
     const onward = edge ? layout.edges.filter((candidate) => candidate.from === edge.to) : [];
-    if (onward.length === 0) continue; // reached a terminal — retire it
+    if (onward.length === 0) continue; // reached a terminal - retire it
     const chosen = onward[Math.floor(random() * onward.length) % onward.length];
     if (chosen) next.push({ ...particle, edgeId: chosen.id, t: t - 1 });
   }
@@ -2545,7 +2545,7 @@ export function Lattice({ dict }: { dict: Dict }) {
 }
 ```
 
-Note: the `domain` value must reach the render loop without restarting the effect — hence
+Note: the `domain` value must reach the render loop without restarting the effect - hence
 `domainRef`. Since the loop only runs while visible, a hover change while the loop is stopped
 also needs a one-off redraw; add a second `useEffect` depending on `domain` that calls the
 exposed redraw. **Implement this by lifting `render` into a ref** (`renderRef.current?.(0)`)
@@ -2583,7 +2583,7 @@ git commit -m "feat: add ambient routing lattice canvas"
 
 **Interfaces:**
 - Consumes: `SITE_URL`, `getDict`
-- Produces: `/sitemap.xml`, `/robots.txt`, `/opengraph-image` — all generated at build time
+- Produces: `/sitemap.xml`, `/robots.txt`, `/opengraph-image` - all generated at build time
 
 - [ ] **Step 1: Write the failing e2e test**
 
@@ -2629,7 +2629,7 @@ test('an open graph image is referenced', async ({ page }) => {
 - [ ] **Step 2: Run it to verify it fails**
 
 Run: `npm run e2e -- meta.spec.ts`
-Expected: FAIL — `/sitemap.xml` returns 404.
+Expected: FAIL - `/sitemap.xml` returns 404.
 
 - [ ] **Step 3: Write `src/app/sitemap.ts`**
 
@@ -2662,7 +2662,7 @@ export default function robots(): MetadataRoute.Robots {
 
 - [ ] **Step 5: Write `src/app/opengraph-image.tsx`**
 
-Generated once at build time — no runtime image service.
+Generated once at build time - no runtime image service.
 
 ```tsx
 import { ImageResponse } from 'next/og';
@@ -2705,7 +2705,7 @@ export default function Image() {
 - [ ] **Step 6: Extend both pages' metadata with OpenGraph fields**
 
 `src/app/opengraph-image.tsx` sits outside both route groups, so Next will not auto-attach it
-to pages that live inside a group. Reference it explicitly on both pages — that is why
+to pages that live inside a group. Reference it explicitly on both pages - that is why
 `images` is listed below.
 
 Add to each page's exported `metadata`:
@@ -2805,7 +2805,7 @@ test('keyboard traversal reaches every interactive element in order', async ({ p
 
 Run: `npm run e2e -- a11y.spec.ts`
 Expected: initially FAIL. Fix contrast, names, and roles until it passes. Do not silence
-rules — fix the markup.
+rules - fix the markup.
 
 - [ ] **Step 3: Verify the reduced-motion path by hand**
 
@@ -2818,7 +2818,7 @@ pointer, and the scroll cue is static.
 
 Run: `npm run build`
 Expected: First Load JS for `/` under 90 kB. If it is above, the cause is almost certainly a
-component that became a client component unnecessarily — check that `Hero`, `Footer` and
+component that became a client component unnecessarily - check that `Hero`, `Footer` and
 `SectionHeading` are still server components.
 
 - [ ] **Step 5: Write `README.md`**
@@ -2845,7 +2845,7 @@ git commit -m "test: add accessibility audit and project readme"
 
 Push `main` to the GitHub remote, import the repository in Vercel (framework preset: Next.js,
 no environment variables needed), and attach `arminburkhardt.com`. **Ask Armin before pushing
-to a remote or triggering a deploy** — creating the remote and pointing DNS are his calls.
+to a remote or triggering a deploy** - creating the remote and pointing DNS are his calls.
 
 ---
 
