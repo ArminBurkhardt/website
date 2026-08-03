@@ -24,13 +24,13 @@ test('the canvas stays behind the content and never blocks clicks', async ({ pag
   await expect(project).toHaveAttribute('aria-expanded', 'true');
 });
 
-test('scrolling down drifts the lattice and keeps it painting', async ({ page }) => {
+test('scrolling down sways the lattice and keeps it painting', async ({ page }) => {
   await page.goto('/');
   const lattice = page.getByTestId('lattice');
-  await expect(lattice).toHaveAttribute('data-parallax', '0.000');
+  await expect(lattice).toHaveAttribute('data-sway', '0.000');
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await expect(lattice).toHaveAttribute('data-parallax', '1.000');
+  await expect(lattice).toHaveAttribute('data-sway', '1.000');
 
   const frames = Number(await lattice.getAttribute('data-frames'));
   await page.waitForTimeout(400);
@@ -49,6 +49,6 @@ test('under reduced motion the lattice neither animates nor reacts to scroll', a
   await page.waitForTimeout(600);
   const later = await page.getByTestId('lattice').getAttribute('data-frames');
   expect(later).toBe(frames);
-  await expect(page.getByTestId('lattice')).toHaveAttribute('data-parallax', '0.000');
+  await expect(page.getByTestId('lattice')).toHaveAttribute('data-sway', '0.000');
   await context.close();
 });

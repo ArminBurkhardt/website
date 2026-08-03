@@ -1,18 +1,28 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { scrollProgress, stepSpring, trackEnergy, projectNode, type Spring } from './scroll.ts';
+import { scrollProgress, stepSpring, projectNode, type Spring } from './scroll.ts';
 import { buildLattice, type LatticeNode } from './layout.ts';
 
+const WIDTH = 1200;
+const HEIGHT = 800;
 const still = { progress: 0, time: 0, drift: 0 };
-const node = (depth: number, y = 400): LatticeNode => ({
+const node = (x: number, depth = 0.5): LatticeNode => ({
   id: `n`,
-  x: 600,
-  y,
+  x,
+  y: 400,
   column: 0,
   domain: null,
   depth,
   phase: 0,
 });
+
+/** How far a node at `x` travels vertically across a full page scroll. */
+function travel(x: number) {
+  const sample = node(x);
+  const top = projectNode(sample, { ...still, progress: 0 }, WIDTH, HEIGHT);
+  const bottom = projectNode(sample, { ...still, progress: 1 }, WIDTH, HEIGHT);
+  return bottom.y - top.y;
+}
 
 /** Runs the spring to rest, returning how many frames it took. */
 function settle(target: number, spring: Spring = { value: 0, velocity: 0 }) {
@@ -70,64 +80,52 @@ test('a long dropped frame cannot fling the spring past its target', () => {
   assert.ok(stepped.value >= 0 && stepped.value <= 1, `landed at ${stepped.value}`);
 });
 
-test('scrolling injects energy and settling bleeds it away', () => {
-  const moving = trackEnergy(0, 0.01, 16.667);
-  assert.ok(moving > 0);
-  assert.ok(trackEnergy(moving, 0, 16.667) < moving);
+test('scrolling lifts the outer columns and leaves the middle alone', () => {
+  assert.ok(Math.abs(travel(WIDTH * 0.08)) > 20, 'the rim has to actually move');
+  assert.ok(Math.abs(travel(WIDTH / 2)) < 0.5, 'the middle is where the text sits');
+  // Falls off quickly, so the sway stays a rim effect rather than a whole-field pan.
+  assert.ok(Math.abs(travel(WIDTH * 0.29)) < Math.abs(travel(WIDTH * 0.08)) / 3);
 });
 
-test('energy never exceeds full, however hard the page is flung', () => {
-  assert.equal(trackEnergy(1, 5, 16.667), 1);
+test('the two sides sway opposite ways, so the field tilts about its centre', () => {
+  const left = travel(WIDTH * 0.08);
+  const right = travel(WIDTH * 0.92);
+  assert.ok(left * right < 0, `expected opposing travel, got ${left} and ${right}`);
+  assert.ok(Math.abs(left + right) < 0.001, 'the tilt has to stay symmetric');
 });
 
-test('energy decays to nothing once scrolling stops', () => {
-  let energy = 1;
-  for (let frame = 0; frame < 400; frame += 1) energy = trackEnergy(energy, 0, 16.667);
-  assert.ok(energy < 0.01, `energy lingered at ${energy}`);
-});
-
-test('near nodes travel further than far ones - this is the parallax', () => {
-  const travel = (sample: LatticeNode) =>
-    Math.abs(
-      projectNode(sample, { ...still, progress: 1 }, 1200, 800).y -
-        projectNode(sample, { ...still, progress: 0 }, 1200, 800).y,
-    );
-  assert.ok(travel(node(1)) > travel(node(0)) * 2, 'depth must visibly separate the planes');
-});
-
-test('the field rises as the page descends', () => {
-  const sample = node(0.5);
-  const top = projectNode(sample, { ...still, progress: 0 }, 1200, 800);
-  const bottom = projectNode(sample, { ...still, progress: 1 }, 1200, 800);
-  assert.ok(bottom.y < top.y);
+test('scrolling never pans or zooms the field', () => {
+  const sample = node(WIDTH * 0.08);
+  const top = projectNode(sample, { ...still, progress: 0 }, WIDTH, HEIGHT);
+  const bottom = projectNode(sample, { ...still, progress: 1 }, WIDTH, HEIGHT);
+  assert.equal(top.x, sample.x);
+  assert.equal(bottom.x, sample.x);
 });
 
 test('idle drift moves the field even with the page held still', () => {
-  const sample = node(0.8);
-  const at = (time: number) => projectNode(sample, { progress: 0, time, drift: 1 }, 1200, 800);
+  const sample = node(WIDTH * 0.08, 0.8);
+  const at = (time: number) => projectNode(sample, { progress: 0, time, drift: 1 }, WIDTH, HEIGHT);
   const start = at(0);
   const later = at(4000);
   assert.ok(Math.abs(later.x - start.x) > 0.5 || Math.abs(later.y - start.y) > 0.5);
 });
 
 test('drift 0 holds the field perfectly still', () => {
-  const sample = node(0.8);
-  const a = projectNode(sample, { progress: 0.5, time: 0, drift: 0 }, 1200, 800);
-  const b = projectNode(sample, { progress: 0.5, time: 9999, drift: 0 }, 1200, 800);
+  const sample = node(WIDTH * 0.08, 0.8);
+  const a = projectNode(sample, { progress: 0.5, time: 0, drift: 0 }, WIDTH, HEIGHT);
+  const b = projectNode(sample, { progress: 0.5, time: 9999, drift: 0 }, WIDTH, HEIGHT);
   assert.deepEqual(a, b);
 });
 
 // The whole range of motion has to stay inside the empty margin buildLattice leaves above
 // and below the nodes, or scrolling would expose a bare band at one edge of the canvas.
 test('no node leaves the viewport at any point in the scroll', () => {
-  const width = 1200;
-  const height = 800;
-  const layout = buildLattice(width, height);
+  const layout = buildLattice(WIDTH, HEIGHT);
   for (const progress of [0, 0.25, 0.5, 0.75, 1]) {
     for (const time of [0, 1500, 3000, 4500, 6000]) {
       for (const sample of layout.nodes) {
-        const { y } = projectNode(sample, { progress, time, drift: 1 }, width, height);
-        assert.ok(y >= 0 && y <= height, `${sample.id} at ${progress}/${time} sits at ${y}`);
+        const { y } = projectNode(sample, { progress, time, drift: 1 }, WIDTH, HEIGHT);
+        assert.ok(y >= 0 && y <= HEIGHT, `${sample.id} at ${progress}/${time} sits at ${y}`);
       }
     }
   }

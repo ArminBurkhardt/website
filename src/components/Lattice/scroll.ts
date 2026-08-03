@@ -1,12 +1,7 @@
 import type { LatticeNode } from './layout';
 
-/** Pan of a mid-depth node over a full page scroll, as a fraction of viewport height. */
-const PAN_RANGE = 0.1;
-/** A far node pans FAR_PAN of that, a near node NEAR_PAN of it - this is the parallax. */
-const FAR_PAN = 0.5;
-const NEAR_PAN = 1.5;
-/** How much the field grows between the top and the bottom of the page. */
-const SCALE_RANGE = 0.06;
+/** Vertical travel of a node at the very edge of the field over a full page scroll. */
+const SWAY_RANGE = 0.08; // fraction of viewport height
 
 /** Idle drift: a slow wander so the lattice breathes when nothing is scrolling. */
 const DRIFT_RADIUS = 3.5; // css pixels at full depth
@@ -18,10 +13,6 @@ const DAMPING = 0.014;
 /** A dropped frame must not integrate one huge step and fling the spring. */
 const MAX_STEP = 32;
 const REST = 0.0002;
-
-/** Scroll energy: how hard the particles surge while the page is moving. */
-const ENERGY_GAIN = 55;
-const ENERGY_DECAY = 0.0015; // per millisecond
 
 export type Spring = { value: number; velocity: number };
 export type Motion = {
@@ -55,18 +46,12 @@ export function stepSpring(spring: Spring, target: number, delta: number): Sprin
   return { value, velocity };
 }
 
-/** Scrolling injects energy, which bleeds away once the page settles. */
-export function trackEnergy(current: number, progressDelta: number, delta: number) {
-  const decayed = current * Math.exp(-ENERGY_DECAY * delta);
-  return clamp(decayed + Math.abs(progressDelta) * ENERGY_GAIN, 0, 1);
-}
-
 /**
  * Places a node on screen for the current motion state.
  *
- * The parallax lives here rather than in a canvas transform: every node is displaced by an
- * amount set by its own depth, so near nodes travel further than far ones and the field
- * reads as having volume instead of being one flat plane that slides.
+ * Scrolling only lifts the outer columns, and the two sides move opposite ways, so the field
+ * tilts slowly about its centre. Nothing pans or zooms: the middle of the canvas - the part
+ * sitting behind the text - stays put, and the long edges into it merely change their slope.
  */
 export function projectNode(
   node: LatticeNode,
@@ -75,22 +60,18 @@ export function projectNode(
   height: number,
 ): Projected {
   const centreX = width / 2;
-  const centreY = height / 2;
 
-  const pan = FAR_PAN + node.depth * (NEAR_PAN - FAR_PAN);
-  const offsetY = (0.5 - motion.progress) * PAN_RANGE * height * pan;
-  const scale = 1 + motion.progress * SCALE_RANGE * (0.5 + node.depth);
+  // Squared, so the sway is confined to the rim instead of bleeding towards the middle.
+  const rim = centreX > 0 ? clamp(Math.abs(node.x - centreX) / centreX, 0, 1) : 0;
+  const side = node.x < centreX ? -1 : 1;
+  const offsetY = side * (motion.progress - 0.5) * rim * rim * SWAY_RANGE * height;
 
   // Two frequencies that do not divide evenly, so the wander never visibly repeats.
   const amplitude = DRIFT_RADIUS * (0.35 + node.depth) * motion.drift;
   const driftX = Math.sin(motion.time * DRIFT_SPEED + node.phase) * amplitude;
   const driftY = Math.cos(motion.time * DRIFT_SPEED * 0.73 + node.phase) * amplitude;
 
-  return {
-    x: centreX + (node.x - centreX) * scale + driftX,
-    y: centreY + (node.y - centreY) * scale + offsetY + driftY,
-    depth: node.depth,
-  };
+  return { x: node.x + driftX, y: node.y + offsetY + driftY, depth: node.depth };
 }
 
 function clamp(value: number, min: number, max: number) {

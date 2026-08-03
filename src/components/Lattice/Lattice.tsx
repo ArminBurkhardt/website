@@ -5,12 +5,12 @@ import type { Dict } from '@/content/types';
 import { DOMAINS } from '@/content/types';
 import { buildLattice, pathToDomain, type LatticeLayout } from './layout';
 import { advance, drawFrame, spawnParticle, MAX_PARTICLES, type Particle } from './draw';
-import { scrollProgress, stepSpring, trackEnergy, type Spring } from './scroll';
+import { scrollProgress, stepSpring, type Spring } from './scroll';
 import { useLatticeHover } from './LatticeContext';
 import styles from './Lattice.module.css';
 
-// The draw is a few hundred lines and dots; at 30fps the parallax reads as stepping rather
-// than gliding, so the loop runs at display rate.
+// The draw is a few hundred lines and dots; at 30fps the sway reads as stepping rather than
+// gliding, so the loop runs at display rate.
 const FRAME_BUDGET = 1000 / 60;
 
 export function Lattice({ dict }: { dict: Dict }) {
@@ -48,11 +48,10 @@ export function Lattice({ dict }: { dict: Dict }) {
 
     const random = Math.random;
 
-    // The scroll handler only records where we are; the animation frame does the spring, the
-    // energy and the drawing, so scrolling never triggers work of its own.
+    // The scroll handler only records where we are; the animation frame does the spring and
+    // the drawing, so scrolling never triggers work of its own.
     let targetProgress = 0;
     let spring: Spring = { value: 0, velocity: 0 };
-    let energy = 0;
     let elapsed = 0;
 
     const readScroll = () => {
@@ -68,11 +67,9 @@ export function Lattice({ dict }: { dict: Dict }) {
         ? pathToDomain(layout, domainRef.current)
         : new Set<string>();
       if (!reduced && delta > 0) {
-        const previous = spring.value;
         spring = stepSpring(spring, targetProgress, delta);
-        energy = trackEnergy(energy, spring.value - previous, delta);
         elapsed += delta;
-        particles = advance(particles, layout, delta, random, energy);
+        particles = advance(particles, layout, delta, random);
         while (particles.length < MAX_PARTICLES && random() < 0.08) {
           particles.push(spawnParticle(layout, random));
         }
@@ -84,7 +81,7 @@ export function Lattice({ dict }: { dict: Dict }) {
       drawFrame(ctx, layout, particles, { faint, accent, opacity, highlight, dpr, motion });
       frames += 1;
       canvas.setAttribute('data-frames', String(frames));
-      canvas.setAttribute('data-parallax', spring.value.toFixed(3));
+      canvas.setAttribute('data-sway', spring.value.toFixed(3));
     };
 
     renderRef.current = () => render(0);

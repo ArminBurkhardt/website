@@ -9,7 +9,7 @@ export type LatticeNode = {
   y: number;
   column: number;
   domain: Domain | null;
-  /** 0 sits far from the viewer, 1 sits near. Drives parallax, size and opacity. */
+  /** 0 sits far from the viewer, 1 sits near. Drives size, opacity and idle drift. */
   depth: number;
   /** Offsets each node's idle drift so the field breathes instead of pulsing in unison. */
   phase: number;

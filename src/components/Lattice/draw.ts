@@ -4,8 +4,6 @@ import { projectNode, type Motion, type Projected } from './scroll';
 export const MAX_PARTICLES = 14;
 export const ACCENT_SHARE = 0.125;
 const BASE_SPEED = 0.00022; // progress per millisecond
-/** Multiplier on particle speed at full scroll energy. */
-const ENERGY_BOOST = 2.5;
 
 export type Particle = { edgeId: string; t: number; speed: number; accent: boolean };
 
@@ -32,18 +30,15 @@ export function spawnParticle(layout: LatticeLayout, random: () => number): Part
   };
 }
 
-/** Scrolling drives the particles harder; `energy` runs 0 (settled) to 1 (flinging). */
 export function advance(
   particles: Particle[],
   layout: LatticeLayout,
   delta: number,
   random: () => number,
-  energy = 0,
 ): Particle[] {
   const next: Particle[] = [];
-  const surge = 1 + energy * ENERGY_BOOST;
   for (const particle of particles) {
-    const t = particle.t + particle.speed * surge * delta;
+    const t = particle.t + particle.speed * delta;
     if (t < 1) {
       next.push({ ...particle, t });
       continue;
