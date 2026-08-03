@@ -1,4 +1,4 @@
-import type { Project } from './types.ts';
+import type { Project } from './types';
 
 /**
  * The file to edit when a project changes.

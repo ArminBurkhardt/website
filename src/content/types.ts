@@ -30,3 +30,34 @@ export type Project = {
   de: ProjectCopy;
   en: ProjectCopy;
 };
+
+export type Fact = { label: string; value: string };
+
+export type Dict = {
+  meta: { title: string; description: string };
+  a11y: {
+    skipToContent: string;
+    toTop: string;
+    themeToLight: string;
+    themeToDark: string;
+    localeSwitch: string;
+    latticeAlt: string;
+  };
+  hero: { kicker: string; name: string; positioning: string; scroll: string };
+  intro: { index: string; label: string; body: string; facts: Fact[] };
+  projects: {
+    index: string;
+    label: string;
+    expand: string;
+    collapse: string;
+    repo: string;
+    site: string;
+    statusLive: string;
+    statusWip: string;
+    defaultPendingNote: string;
+  };
+  links: { index: string; label: string; linkedin: string; github: string };
+  footer: { copyright: string; place: string };
+  sections: { start: string; intro: string; projects: string; links: string };
+  domains: Record<Domain, string>;
+};

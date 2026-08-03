@@ -1,0 +1,10 @@
+.footer {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 2rem var(--gutter) 2.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}

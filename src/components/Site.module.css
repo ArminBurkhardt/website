@@ -1,0 +1,15 @@
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 20;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  text-decoration: none;
+}
+
+.skip:focus {
+  left: var(--gutter);
+  top: 0.75rem;
+}

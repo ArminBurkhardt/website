@@ -1,0 +1,12 @@
+.section {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: var(--section-gap);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
