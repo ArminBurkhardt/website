@@ -24,13 +24,17 @@
 }
 
 .wordmark {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  color: var(--fg-muted);
+  color: var(--fg);
   transition: color var(--dur) var(--ease);
 }
 
 .wordmark:hover {
-  color: var(--fg);
+  color: var(--accent);
 }
 
 .controls {

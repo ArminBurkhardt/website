@@ -53,8 +53,8 @@ export function Chrome({ dict, locale }: { dict: Dict; locale: Locale }) {
     <>
       <div ref={progressRef} className={styles.progress} data-testid="progress" aria-hidden="true" />
       <header className={styles.header}>
-        <a href="#start" className={`mono ${styles.wordmark}`}>
-          {dict.hero.name}
+        <a href="#start" className={styles.wordmark} aria-label={dict.hero.name} title={dict.hero.name}>
+          AB
         </a>
         <nav className={styles.controls} aria-label={dict.a11y.localeSwitch}>
           <button
