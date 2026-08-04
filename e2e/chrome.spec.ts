@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test';
 test('the locale toggle is a real link to the other locale', async ({ page }) => {
   await page.goto('/');
   const toggle = page.getByTestId('locale-toggle');
-  await expect(toggle).toHaveAttribute('href', '/en');
+  await expect(toggle).toHaveAttribute('href', '/en/');
   await toggle.click();
-  await expect(page).toHaveURL('/en');
+  await expect(page).toHaveURL('/en/');
   await expect(page.getByTestId('locale-toggle')).toHaveAttribute('href', '/');
 });
 

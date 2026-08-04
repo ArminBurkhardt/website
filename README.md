@@ -1,7 +1,7 @@
 # arminburkhardt.com
 
 Personal portfolio for [arminburkhardt.com](https://arminburkhardt.com). Bilingual
-(German at `/`, English at `/en`), fully statically prerendered, deployed on Vercel.
+(German at `/`, English at `/en`), fully statically prerendered, deployed on GitHub Pages.
 
 ## Local development
 
@@ -88,5 +88,13 @@ static frame.
 
 ## Deployment
 
-Push to `main` and import the repository in Vercel (framework preset: Next.js, no environment
-variables). Attach the domain in the Vercel dashboard.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds a static export
+(`next build` with `output: 'export'`) and publishes it via GitHub Pages. In the repo's
+**Settings → Pages**, set the source to "GitHub Actions". The custom domain is configured via
+`public/CNAME`; point the domain's DNS at GitHub Pages (an `ALIAS`/`ANAME`/`A` record for the
+apex, per [GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)),
+then set it again under **Settings → Pages → Custom domain** so GitHub provisions HTTPS.
+
+Note: GitHub Pages serves static files only and doesn't support custom response headers, so the
+`X-Content-Type-Options` / `Referrer-Policy` / `Permissions-Policy` headers Vercel used to send
+are no longer set.
