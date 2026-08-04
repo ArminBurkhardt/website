@@ -53,7 +53,7 @@ export const projects: readonly Project[] = [
     de: {
       title: `Tiny Mixture-of-Experts LLM`,
       tagline: `Sprachmodell mit ~300M Parametern und geloopter Mixture-of-Experts-Architektur.`,
-      body: `Ein experimentelles LMM mit dense Gemma4-style Backbone. Danach wird ein einziger MoE-Block wird mehrfach durchlaufen (LoopLM-style) und routet die Tokens bei jedem Durchgang neu. Heterogene Experten - Self-Attention, Cross-Attention, Retrieval und MLP - teilen sich einen Router. Multi-Token-Prediction als Zusatzziel, Training u.a. in FP8 und NVFP4.`,
+      body: `Ein experimentelles LMM mit dense Gemma4-style Backbone. Danach wird ein einziger MoE-Block mehrfach durchlaufen (LoopLM-style) und routet die Tokens bei jedem Durchgang neu. Heterogene Experten - Self-Attention, Cross-Attention, Retrieval und MLP - teilen sich einen Router. Multi-Token-Prediction als Zusatzziel, Training u.a. in FP8 und NVFP4.`,
       stack: [`PyTorch`, `Transformer Engine`, `CUDA`, `MoE`, `MTP`],
       pendingNote: `Aktuell im Training - das Repository wird veröffentlicht, sobald das Training durch ist.`,
     },

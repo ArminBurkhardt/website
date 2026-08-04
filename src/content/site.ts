@@ -30,7 +30,7 @@ const de: Dict = {
   intro: {
     index: '01',
     label: 'Über mich',
-    body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Machine Learning Modelle in Bereiche kommen, in denen es komplex wird und Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
+    body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Machine Learning Modelle in Bereiche kommen, in denen es komplex wird und Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich mit meinem Mitgründer die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
     facts: [
       { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024 - 2027' },
       { label: 'Rolle', value: 'Studentische Hilfskraft, Interfakultäres Institut für Biomedizinische Informatik (IBMI) Tübingen' },
@@ -88,7 +88,7 @@ const en: Dict = {
   intro: {
     index: '01',
     label: 'About',
-    body: 'I study computer science in Tübingen. What interests me most is what happens when modern machine learning models reach complex domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society, a student initiative meant to close exactly that gap between theory and practice.',
+    body: 'I study computer science in Tübingen. What interests me most is what happens when modern machine learning models reach complex domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society with a fellow student, a student initiative meant to close exactly that gap between theory and practice.',
     facts: [
       { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024 - 2027' },
       { label: 'Role', value: 'Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen' },
