@@ -108,13 +108,14 @@
   gap: 1.5rem;
   max-width: var(--measure);
   padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
-  animation: reveal 500ms var(--ease) both;
+  transform-origin: top;
+  animation: reveal 450ms var(--ease) both;
 }
 
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: scaleY(0.85) translateY(-16px);
   }
   to {
     opacity: 1;

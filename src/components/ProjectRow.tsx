@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState, type CSSProperties } from 'react';
+import { useId, type CSSProperties } from 'react';
 import type { Dict, Locale, Project } from '@/content/types';
 import { useLatticeHover } from './Lattice/LatticeContext';
 import styles from './ProjectRow.module.css';
@@ -10,13 +10,16 @@ export function ProjectRow({
   locale,
   dict,
   index,
+  open,
+  onToggle,
 }: {
   project: Project;
   locale: Locale;
   dict: Dict;
   index: number;
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(false);
   const panelId = useId();
   const copy = project[locale];
   const { setDomain } = useLatticeHover();
@@ -37,7 +40,7 @@ export function ProjectRow({
         className={styles.trigger}
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((value) => !value)}
+        onClick={onToggle}
         onFocus={() => setDomain(project.domain)}
         onBlur={() => setDomain(null)}
       >

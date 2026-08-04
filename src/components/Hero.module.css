@@ -13,8 +13,7 @@
 .name,
 .positioning,
 .scroll {
-  opacity: 0;
-  animation: rise 700ms var(--ease) both;
+  animation: rise 700ms var(--ease) backwards;
   animation-delay: calc(var(--i) * 80ms);
 }
 
@@ -53,6 +52,15 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
+  transition:
+    opacity 400ms var(--ease),
+    transform 400ms var(--ease);
+}
+
+.scroll[data-hidden='true'] {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
 }
 
 .scrollLine {

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import type { Dict, Locale } from '@/content/types';
 import { projects } from '@/content/projects';
 import { useReveal } from '@/hooks/useReveal';
@@ -9,6 +10,7 @@ import styles from './Projects.module.css';
 
 export function Projects({ dict, locale }: { dict: Dict; locale: Locale }) {
   const { ref, revealed } = useReveal<HTMLElement>();
+  const [openId, setOpenId] = useState<string | null>(null);
   return (
     <section
       id="projects"
@@ -30,6 +32,8 @@ export function Projects({ dict, locale }: { dict: Dict; locale: Locale }) {
             locale={locale}
             dict={dict}
             index={index}
+            open={project.id === openId}
+            onToggle={() => setOpenId((current) => (current === project.id ? null : project.id))}
           />
         ))}
       </ul>

@@ -26,18 +26,17 @@ test('a row expands and collapses, and its panel leaves the a11y tree when close
   await expect(page.getByText(/dense Gemma4-style Backbone/)).toBeHidden();
 });
 
-test('multiple rows can be open at once', async ({ page }) => {
+test('opening a row closes the previously open row', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ }).click();
-  await page.getByRole('button', { name: /Assist/ }).click();
-  await expect(page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ })).toHaveAttribute(
-    'aria-expanded',
-    'true',
-  );
-  await expect(page.getByRole('button', { name: /Assist/ })).toHaveAttribute(
-    'aria-expanded',
-    'true',
-  );
+  const moeTrigger = page.getByRole('button', { name: /Tiny Mixture-of-Experts LLM/ });
+  const assistTrigger = page.getByRole('button', { name: /Assist/ });
+
+  await moeTrigger.click();
+  await expect(moeTrigger).toHaveAttribute('aria-expanded', 'true');
+
+  await assistTrigger.click();
+  await expect(assistTrigger).toHaveAttribute('aria-expanded', 'true');
+  await expect(moeTrigger).toHaveAttribute('aria-expanded', 'false');
 });
 
 test('a project with a repo shows a link, one without shows the pending note', async ({ page }) => {
