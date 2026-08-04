@@ -3,9 +3,6 @@
 Personal portfolio for [arminburkhardt.com](https://arminburkhardt.com). Bilingual
 (German at `/`, English at `/en`), fully statically prerendered, deployed on Vercel.
 
-There is no backend: no route handlers, no middleware, no server actions. Every route is
-`○ (Static)` in the build output, so Vercel serves plain CDN assets.
-
 ## Local development
 
 Requires Node.js 22 or newer.
@@ -43,7 +40,7 @@ All copy lives in `src/content`. Nothing needs touching in components.
 {
   id: 'my-project',
   year: '2026',
-  domain: 'ml',              // quant | ml | law | access - picks the lattice path that lights up on hover
+  domain: 'ml',              // quant | ml | law - picks the lattice path that lights up on hover
   status: 'wip',             // live | wip
   links: { repo: null, site: null },
   de: { title, tagline, body, stack: ['…'], pendingNote: '…' },
@@ -80,11 +77,11 @@ so a missing key fails the build, and a test asserts the two key trees match exa
 
 Tokens live in `src/app/globals.css`. The rose `--accent` is deliberately scarce - the scroll
 progress bar, work-in-progress status tags, link underlines on hover, and the occasional
-routing packet. It is never used as a fill or on body text.
+routing packet.
 
 The background canvas (`src/components/Lattice/`) is an ambient visualisation of sparse
 expert routing: particles enter from the left and are routed to one of four terminals -
-Quant, ML, Law, Access. Hovering a project row lights the path to that project's domain. The
+Quant, ML, Law, other. Hovering a project row lights the path to that project's domain. The
 layout is generated from a fixed seed, so it renders identically on every load. The loop
 pauses off-screen and on hidden tabs, and `prefers-reduced-motion` reduces it to a single
 static frame.
