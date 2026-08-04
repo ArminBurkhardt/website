@@ -34,13 +34,13 @@ export const projects: readonly Project[] = [
     de: {
       title: `HackTheLaw: mike t-AI-son`,
       tagline: `Adversariales Trainingstool für juristische Argumentation.`,
-      body: `Gebaut bei HackTheLaw in Cambridge für Legoras Challenge "The Sparring Room". Statt Antworten zu liefern, greift das System die Argumentation der Nutzer:innen an und zwingt sie, ihre Position zu verteidigen - juristisches Sparring statt Recherche-Assistent. Python-Backend mit FastAPI, Frontend mit React und Vite.`,
+      body: `Gebaut beim HackTheLaw Hackathon an der University of Cambridge für Legoras Challenge "The Sparring Room". Statt Antworten zu liefern, greift das System die Argumentation der Nutzer:innen an und zwingt sie, ihre Position zu verteidigen - juristisches Sparring statt Recherche-Assistent. Python-Backend mit FastAPI, Frontend mit React und Vite.`,
       stack: [`Python`, `FastAPI`, `React`, `Vite`, `LLMs`],
     },
     en: {
       title: `HackTheLaw: mike t-AI-son`,
       tagline: `An adversarial training tool for legal argument.`,
-      body: `Built at HackTheLaw in Cambridge for Legora's "The Sparring Room" challenge. Rather than answering questions, the system attacks the user's reasoning and forces them to defend their position - legal sparring instead of a research assistant. Python backend on FastAPI, frontend in React and Vite.`,
+      body: `Built at the HackTheLaw Hackathon at the University of Cambridge for Legora's "The Sparring Room" challenge. Rather than answering questions, the system attacks the user's reasoning and forces them to defend their position - legal sparring instead of a research assistant. Python backend on FastAPI, frontend in React and Vite.`,
       stack: [`Python`, `FastAPI`, `React`, `Vite`, `LLMs`],
     },
   },
@@ -55,7 +55,7 @@ export const projects: readonly Project[] = [
       tagline: `Sprachmodell mit ~300M Parametern und geloopter Mixture-of-Experts-Architektur.`,
       body: `Ein experimentelles LMM mit dense Gemma4-style Backbone. Danach wird ein einziger MoE-Block wird mehrfach durchlaufen (LoopLM-style) und routet die Tokens bei jedem Durchgang neu. Heterogene Experten - Self-Attention, Cross-Attention, Retrieval und MLP - teilen sich einen Router. Multi-Token-Prediction als Zusatzziel, Training u.a. in FP8 und NVFP4.`,
       stack: [`PyTorch`, `Transformer Engine`, `CUDA`, `MoE`, `MTP`],
-      pendingNote: `Aktuell im Training - das Repository wird veröffentlicht, sobald der Lauf durch ist.`,
+      pendingNote: `Aktuell im Training - das Repository wird veröffentlicht, sobald das Training durch ist.`,
     },
     en: {
       title: `Tiny Mixture-of-Experts LLM`,

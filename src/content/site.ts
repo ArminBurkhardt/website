@@ -24,7 +24,7 @@ const de: Dict = {
     kicker: 'Informatikstudent · Tübingen',
     name: 'Armin Burkhardt',
     positioning:
-      'Ich baue an der Schnittstelle von Quantitative Finance, maschinellem Lernen und branchenübergreifenden Anwendungen.',
+      'Ich arbeite an der Schnittstelle von Quantitative Finance, maschinellem Lernen und branchenübergreifenden ML Anwendungen.',
     scroll: 'Scrollen',
   },
   intro: {
