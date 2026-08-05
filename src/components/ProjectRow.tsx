@@ -45,7 +45,7 @@ export function ProjectRow({
         onBlur={() => setDomain(null)}
       >
         <span className={`mono ${styles.index}`} aria-hidden="true">
-          {String(index + 1).padStart(2, '0')}
+          · {String(index + 1).padStart(2, '0')}
         </span>
         <span className={styles.headline}>
           <span className={styles.title}>{copy.title}</span>

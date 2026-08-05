@@ -4,7 +4,7 @@ export const DEFAULT_LOCALE = 'de' as const;
 export const DEFAULT_THEME: 'dark' | 'light' = 'light';
 
 /** Lines from the lattice to the mouse cursor. Flip to false to turn the effect off. */
-export const CURSOR_LINES_ENABLED = true;
+export const CURSOR_LINES_ENABLED = false;
 
 export const SITE_URL = 'https://arminburkhardt.com';
 
