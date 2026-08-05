@@ -32,15 +32,24 @@
 
 .link {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: clamp(1.25rem, 2.5vw, 2rem);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
   text-decoration: none;
   font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 500;
   letter-spacing: -0.02em;
+}
+
+.link > span:first-child {
+  grid-column: 2;
+}
+
+.arrow {
+  grid-column: 4;
+  justify-self: end;
 }
 
 .link::after {
