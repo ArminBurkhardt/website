@@ -1,11 +1,12 @@
 import type { LatticeLayout } from './layout';
 import { projectNode, type Motion, type Projected } from './scroll';
 
-export const MAX_PARTICLES = 14;
+export const MAX_PARTICLES = 20;
 export const ACCENT_SHARE = 0.125;
 const BASE_SPEED = 0.00022; // progress per millisecond
 
 export type Particle = { edgeId: string; t: number; speed: number; accent: boolean };
+export type CursorPoint = { x: number; y: number };
 
 export type DrawOptions = {
   faint: string;
@@ -14,6 +15,8 @@ export type DrawOptions = {
   highlight: Set<string>;
   dpr: number;
   motion: Motion;
+  cursor?: CursorPoint | null;
+  cursorLineCount?: number;
 };
 
 export function spawnParticle(layout: LatticeLayout, random: () => number): Particle {
@@ -52,6 +55,35 @@ export function advance(
   return next.slice(0, MAX_PARTICLES);
 }
 
+export type CursorTarget = { x: number; y: number; depth: number };
+
+/** Points farther than this from the cursor never get a line, however few are nearby. */
+export const CURSOR_LINE_RANGE = 140;
+
+/**
+ * Of a set of candidate points within range, returns whichever sit closest to the cursor
+ * right now. Called fresh every frame against live positions - including moving particles -
+ * so a fast-moving cursor never drags a line to a point that has since drifted away,
+ * stretching it across the field.
+ */
+export function nearestCursorTargets(
+  candidates: CursorTarget[],
+  cursor: CursorPoint,
+  count: number,
+): CursorTarget[] {
+  const maxDistanceSq = CURSOR_LINE_RANGE * CURSOR_LINE_RANGE;
+  const inRange = candidates.filter((point) => distanceSq(point, cursor) <= maxDistanceSq);
+  return inRange
+    .sort((a, b) => distanceSq(a, cursor) - distanceSq(b, cursor))
+    .slice(0, Math.min(count, inRange.length));
+}
+
+function distanceSq(point: { x: number; y: number }, cursor: CursorPoint) {
+  const dx = point.x - cursor.x;
+  const dy = point.y - cursor.y;
+  return dx * dx + dy * dy;
+}
+
 export function drawFrame(
   ctx: CanvasRenderingContext2D,
   layout: LatticeLayout,
@@ -86,6 +118,44 @@ export function drawFrame(
     ctx.stroke();
   }
 
+  // Every moving dot's current position, so the cursor lines below can reach for a particle
+  // that has drifted closer than any static node without recomputing this per line.
+  const particlePoints = particles
+    .map((particle) => {
+      const edge = layout.edges.find((candidate) => candidate.id === particle.edgeId);
+      const from = edge ? byId.get(edge.from) : undefined;
+      const to = edge ? byId.get(edge.to) : undefined;
+      if (!from || !to) return null;
+      return { particle, point: interpolate(from, to, particle.t), depth: (from.depth + to.depth) / 2 };
+    })
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+
+  if (options.cursor && options.cursorLineCount) {
+    const nodeTargets: CursorTarget[] = layout.nodes
+      .map((node) => byId.get(node.id))
+      .filter((point): point is Projected => !!point)
+      .map((point) => ({ x: point.x, y: point.y, depth: point.depth }));
+    const particleTargets: CursorTarget[] = particlePoints.map(({ point, depth }) => ({
+      x: point.x,
+      y: point.y,
+      depth,
+    }));
+    const targets = nearestCursorTargets(
+      [...nodeTargets, ...particleTargets],
+      options.cursor,
+      options.cursorLineCount,
+    );
+    for (const target of targets) {
+      ctx.strokeStyle = options.faint;
+      ctx.globalAlpha = Math.min(1, options.opacity * 0.8 * depthFade(target.depth));
+      ctx.lineWidth = 0.75 + target.depth * 0.6;
+      ctx.beginPath();
+      ctx.moveTo(target.x, target.y);
+      ctx.lineTo(options.cursor.x, options.cursor.y);
+      ctx.stroke();
+    }
+  }
+
   for (const node of layout.nodes) {
     const point = byId.get(node.id);
     if (!point) continue;
@@ -96,13 +166,7 @@ export function drawFrame(
     ctx.fill();
   }
 
-  for (const particle of particles) {
-    const edge = layout.edges.find((candidate) => candidate.id === particle.edgeId);
-    const from = edge ? byId.get(edge.from) : undefined;
-    const to = edge ? byId.get(edge.to) : undefined;
-    if (!from || !to) continue;
-    const point = interpolate(from, to, particle.t);
-    const depth = (from.depth + to.depth) / 2;
+  for (const { particle, point, depth } of particlePoints) {
     ctx.globalAlpha = Math.min(1, options.opacity * (particle.accent ? 6 : 4) * depthFade(depth));
     ctx.fillStyle = particle.accent ? options.accent : options.faint;
     ctx.beginPath();

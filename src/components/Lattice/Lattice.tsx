@@ -4,9 +4,17 @@ import { useEffect, useRef } from 'react';
 import type { Dict } from '@/content/types';
 import { DOMAINS } from '@/content/types';
 import { buildLattice, pathToDomain, type LatticeLayout } from './layout';
-import { advance, drawFrame, spawnParticle, MAX_PARTICLES, type Particle } from './draw';
+import {
+  advance,
+  drawFrame,
+  spawnParticle,
+  MAX_PARTICLES,
+  type Particle,
+  type CursorPoint,
+} from './draw';
 import { scrollProgress, stepSpring, type Spring } from './scroll';
 import { useLatticeHover } from './LatticeContext';
+import { CURSOR_LINES_ENABLED } from '@/config/site';
 import styles from './Lattice.module.css';
 
 // The draw is a few hundred lines and dots; at 30fps the sway reads as stepping rather than
@@ -54,6 +62,24 @@ export function Lattice({ dict }: { dict: Dict }) {
     let spring: Spring = { value: 0, velocity: 0 };
     let elapsed = 0;
 
+    // Spawns on a steady timer rather than a per-frame coin flip, so new dots keep appearing
+    // at a continuous trickle instead of arriving in random clumps with visible gaps between.
+    let nextSpawnAt = 0;
+
+    // The lines threading out to the cursor always track whichever points - static nodes or
+    // moving particles - sit closest to it right now; drawFrame recomputes that every frame
+    // against live positions. Only the line count re-rolls on a delay, so it does not flicker.
+    let cursor: CursorPoint | null = null;
+    let cursorLineCount = 0;
+    let nextCursorCountChange = 0;
+
+    const onPointerMove = (event: PointerEvent) => {
+      cursor = { x: event.clientX, y: event.clientY };
+    };
+    const onPointerLeave = () => {
+      cursor = null;
+    };
+
     const readScroll = () => {
       targetProgress = scrollProgress(
         window.scrollY,
@@ -70,15 +96,29 @@ export function Lattice({ dict }: { dict: Dict }) {
         spring = stepSpring(spring, targetProgress, delta);
         elapsed += delta;
         particles = advance(particles, layout, delta, random);
-        while (particles.length < MAX_PARTICLES && random() < 0.08) {
+        while (particles.length < MAX_PARTICLES && elapsed >= nextSpawnAt) {
           particles.push(spawnParticle(layout, random));
+          nextSpawnAt = elapsed + 90 + random() * 120;
+        }
+        if (cursor && elapsed >= nextCursorCountChange) {
+          cursorLineCount = 2 + Math.floor(random() * 3); // 2 to 4, re-rolled occasionally
+          nextCursorCountChange = elapsed + 500 + random() * 900;
         }
       }
       // Reduced motion parks the field at its midpoint with the drift switched off.
       const motion = reduced
         ? { progress: 0.5, time: 0, drift: 0 }
         : { progress: spring.value, time: elapsed, drift: 1 };
-      drawFrame(ctx, layout, particles, { faint, accent, opacity, highlight, dpr, motion });
+      drawFrame(ctx, layout, particles, {
+        faint,
+        accent,
+        opacity,
+        highlight,
+        dpr,
+        motion,
+        cursor,
+        cursorLineCount,
+      });
       frames += 1;
       canvas.setAttribute('data-frames', String(frames));
       canvas.setAttribute('data-sway', spring.value.toFixed(3));
@@ -143,8 +183,13 @@ export function Lattice({ dict }: { dict: Dict }) {
     resize();
     document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('resize', onResize, { passive: true });
-    // Reduced motion keeps the lattice still, so there is nothing for scrolling to drive.
+    // Reduced motion keeps the lattice still, so there is nothing for scrolling or the
+    // cursor lines to drive.
     if (!reduced) window.addEventListener('scroll', readScroll, { passive: true });
+    if (!reduced && CURSOR_LINES_ENABLED) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerleave', onPointerLeave);
+    }
     start();
 
     return () => {
@@ -156,6 +201,8 @@ export function Lattice({ dict }: { dict: Dict }) {
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', onResize);
       window.removeEventListener('scroll', readScroll);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeave);
     };
   }, []);
 

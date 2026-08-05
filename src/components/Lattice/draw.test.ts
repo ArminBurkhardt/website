@@ -1,7 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildLattice } from './layout.ts';
-import { advance, spawnParticle, MAX_PARTICLES, ACCENT_SHARE } from './draw.ts';
+import {
+  advance,
+  spawnParticle,
+  nearestCursorTargets,
+  MAX_PARTICLES,
+  ACCENT_SHARE,
+  CURSOR_LINE_RANGE,
+} from './draw.ts';
 
 const layout = buildLattice(1200, 800);
 const random = () => 0.5;
@@ -37,4 +44,47 @@ test('particle count never exceeds the cap', () => {
 
 test('accent share stays a small minority', () => {
   assert.ok(ACCENT_SHARE > 0 && ACCENT_SHARE <= 0.2);
+});
+
+test('nearest cursor targets respects the requested count', () => {
+  const cursor = { x: 0, y: 0 };
+  const candidates = [
+    { x: 10, y: 0, depth: 0.5 },
+    { x: 20, y: 0, depth: 0.5 },
+    { x: 30, y: 0, depth: 0.5 },
+  ];
+  const targets = nearestCursorTargets(candidates, cursor, 2);
+  assert.equal(targets.length, 2);
+});
+
+test('nearest cursor targets never exceeds the number of in-range candidates', () => {
+  const cursor = { x: 0, y: 0 };
+  const candidates = [{ x: 10, y: 0, depth: 0.5 }];
+  const targets = nearestCursorTargets(candidates, cursor, 999);
+  assert.equal(targets.length, 1);
+});
+
+test('nearest cursor targets picks the actually-closest points, not just any points', () => {
+  const cursor = { x: 0, y: 0 };
+  const near = { x: 5, y: 0, depth: 0.5 };
+  const mid = { x: 20, y: 0, depth: 0.5 };
+  const far = { x: 60, y: 0, depth: 0.5 };
+  const targets = nearestCursorTargets([far, mid, near], cursor, 2);
+  assert.deepEqual(targets, [near, mid]);
+});
+
+test('nearest cursor targets excludes points beyond the connection range', () => {
+  const cursor = { x: 0, y: 0 };
+  const near = { x: 10, y: 0, depth: 0.5 };
+  const beyondRange = { x: CURSOR_LINE_RANGE + 50, y: 0, depth: 0.5 };
+  const targets = nearestCursorTargets([near, beyondRange], cursor, 2);
+  assert.deepEqual(targets, [near]);
+});
+
+test('nearest cursor targets picks a particle over a farther out-of-range static node', () => {
+  const cursor = { x: 0, y: 0 };
+  const farNode = { x: 1000, y: 1000, depth: 0.5 };
+  const nearParticle = { x: 1, y: 1, depth: 0.5 };
+  const targets = nearestCursorTargets([farNode, nearParticle], cursor, 1);
+  assert.deepEqual(targets, [nearParticle]);
 });

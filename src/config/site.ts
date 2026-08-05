@@ -3,6 +3,9 @@ export const DEFAULT_LOCALE = 'de' as const;
 /** Single source of truth for the theme the site loads with. Flip to 'light' to change it. */
 export const DEFAULT_THEME: 'dark' | 'light' = 'light';
 
+/** Lines from the lattice to the mouse cursor. Flip to false to turn the effect off. */
+export const CURSOR_LINES_ENABLED = true;
+
 export const SITE_URL = 'https://arminburkhardt.com';
 
 export const LINKS = {
