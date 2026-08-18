@@ -82,13 +82,13 @@ const en: Dict = {
     kicker: 'Computer Science Student · Tübingen',
     name: 'Armin Burkhardt',
     positioning:
-      'I build at the intersection of quantitative finance, machine learning and interdisciplinary applications.',
+      'I work on quantitative finance, machine learning and interdisciplinary ML applications.',
     scroll: 'Scroll',
   },
   intro: {
     index: '01',
     label: 'About',
-    body: 'I study computer science in Tübingen. What interests me most is what happens when modern machine learning models reach complex domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society with a fellow student, a student initiative meant to close exactly that gap between theory and practice.',
+    body: 'I study computer science in Tübingen. What interests me most is what happens when modern machine learning models reach complex domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society with a fellow student, a student initiative that closes exactly that gap between theory and practice.',
     facts: [
       { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024 - today' },
       { label: 'Role', value: 'Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen' },
