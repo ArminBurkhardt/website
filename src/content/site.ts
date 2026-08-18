@@ -24,13 +24,13 @@ const de: Dict = {
     kicker: 'Informatikstudent · Tübingen',
     name: 'Armin Burkhardt',
     positioning:
-      'Ich arbeite an der Schnittstelle von Quantitative Finance, maschinellem Lernen und branchenübergreifenden ML Anwendungen.',
+      'Ich arbeite an Quantitative Finance, maschinellem Lernen und branchenübergreifenden ML Anwendungen.',
     scroll: 'Scrollen',
   },
   intro: {
     index: '01',
     label: 'Über mich',
-    body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Machine Learning Modelle in Bereiche kommen, in denen es komplex wird und Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich mit meinem Mitgründer die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließen soll.',
+    body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Machine Learning Modelle in Bereiche kommen, in denen es komplex wird und Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich mit meinem Mitgründer die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließt.',
     facts: [
       { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024 - heute' },
       { label: 'Rolle', value: 'Studentische Hilfskraft, Interfakultäres Institut für Biomedizinische Informatik (IBMI) Tübingen' },
