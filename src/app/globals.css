@@ -2,7 +2,8 @@
   --bg: #0a0a0a;
   --fg: #fafaf9;
   --fg-muted: #a1a1aa;
-  /* Meets WCAG AA (4.5:1) against --bg at the 11px mono label size. */
+  /* Meets WCAG AA (4.5:1) against --bg - the mono labels sit well under the
+     large-text exemption, so they need the full ratio. */
   --fg-faint: #8b8b93;
   --rule: rgba(250, 250, 249, 0.1);
   --accent: #fb4a6b;
@@ -24,8 +25,8 @@
   --fg-muted: #52525b;
   --fg-faint: #65656d;
   --rule: rgba(10, 10, 10, 0.1);
-  /* Darkened a touch from the brand e11d48 - at 11px mono that hex clears only 4.49:1
-     against --bg, just under WCAG AA's 4.5:1 for the wip status label. */
+  /* Darkened a touch from the brand e11d48 - that hex clears only 4.49:1 against
+     --bg, just under WCAG AA's 4.5:1 for the wip status label. */
   --accent: #d61c44;
   --lattice: #71717a;
   --lattice-opacity: 0.16;
@@ -45,7 +46,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -64,10 +65,13 @@ a {
   border-radius: 2px;
 }
 
+/* Azeret Mono runs wide with a tall x-height, so it reads a size larger than it
+   is set - hence 10.4px and less tracking than a narrower mono would need. */
 .mono {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--fg-faint);
 }

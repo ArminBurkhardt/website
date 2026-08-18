@@ -4,12 +4,12 @@ test('german hero renders name, kicker and positioning', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Armin Burkhardt');
   await expect(page.getByText('Informatikstudent · Tübingen')).toBeVisible();
-  await expect(page.getByText(/Schnittstelle von Quantitative Finance/)).toBeVisible();
+  await expect(page.getByText(/Ich arbeite an Quantitative Finance/)).toBeVisible();
 });
 
 test('english hero renders the translated positioning', async ({ page }) => {
   await page.goto('/en');
-  await expect(page.getByText(/intersection of quantitative finance/)).toBeVisible();
+  await expect(page.getByText(/I work on quantitative finance/)).toBeVisible();
 });
 
 test('hero occupies the first viewport', async ({ page }) => {
