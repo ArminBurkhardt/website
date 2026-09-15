@@ -51,6 +51,16 @@ test('getDict returns the requested locale', () => {
   assert.equal(getDict('de'), dictionaries.de);
 });
 
+test('section indices count up in page order', () => {
+  for (const locale of LOCALES) {
+    const { intro, projects, cv, links } = dictionaries[locale];
+    assert.deepEqual(
+      [intro.index, projects.index, cv.index, links.index],
+      ['01', '02', '03', '04'],
+    );
+  }
+});
+
 test('each locale supplies exactly four facts', () => {
   for (const locale of LOCALES) assert.equal(dictionaries[locale].intro.facts.length, 4);
 });

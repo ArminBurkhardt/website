@@ -57,6 +57,14 @@ Unit tests enforce that ids are unique, both locales are filled in, stacks match
 locales, links are absolute `https:` URLs, and that a work-in-progress project with no links
 carries a pending note.
 
+### CV
+
+`src/content/cv.ts` holds the CV entries - education, experience, engagement and awards.
+Each entry names its `group` and carries `de`/`en` copy (`title`, `org`, `period`, optional
+`mode` and `detail`). List entries in group order, newest first within a group. The current
+grade sits on the education entry as `grade: 1.09` and is formatted per locale (`1,09` /
+`1.09`); update it there when it changes.
+
 ### Everything else
 
 `src/content/site.ts` holds the `de` and `en` dictionaries: hero, intro, fact grid, section

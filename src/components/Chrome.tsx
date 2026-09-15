@@ -7,13 +7,15 @@ import { useTheme } from '@/hooks/useTheme';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import styles from './Chrome.module.css';
 
-const SECTION_IDS = ['start', 'intro', 'projects', 'links'] as const;
+const SECTION_IDS = ['start', 'intro', 'projects', 'cv', 'links'] as const;
 type SectionId = (typeof SECTION_IDS)[number];
+const LAST_INDEX = String(SECTION_IDS.length - 1).padStart(2, '0');
 
 const SECTION_KEYS: Record<SectionId, keyof Dict['sections']> = {
   start: 'start',
   intro: 'intro',
   projects: 'projects',
+  cv: 'cv',
   links: 'links',
 };
 
@@ -85,7 +87,7 @@ export function Chrome({ dict, locale }: { dict: Dict; locale: Locale }) {
         </nav>
       </header>
       <p className={`mono ${styles.marker}`} data-testid="section-marker" aria-hidden="true">
-        {markerIndex} / 03 - {dict.sections[SECTION_KEYS[activeId]]}
+        {markerIndex} / {LAST_INDEX} - {dict.sections[SECTION_KEYS[activeId]]}
       </p>
     </>
   );
