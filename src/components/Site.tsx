@@ -5,6 +5,7 @@ import { Lattice } from './Lattice/Lattice';
 import { Chrome } from './Chrome';
 import { Hero } from './Hero';
 import { Intro } from './Intro';
+import { Cv } from './Cv';
 import { Projects } from './Projects';
 import { Links } from './Links';
 import { Footer } from './Footer';
@@ -23,6 +24,7 @@ export function Site({ locale }: { locale: Locale }) {
         <Hero dict={dict} />
         <Intro dict={dict} />
         <Projects dict={dict} locale={locale} />
+        <Cv dict={dict} locale={locale} />
         <Links dict={dict} />
       </main>
       <Footer dict={dict} />

@@ -33,6 +33,28 @@ export type Project = {
 
 export type Fact = { label: string; value: string };
 
+export type CvGroup = 'education' | 'experience' | 'engagement' | 'awards';
+export const CV_GROUPS: readonly CvGroup[] = ['education', 'experience', 'engagement', 'awards'];
+
+export type CvCopy = {
+  title: string;
+  org: string;
+  /** Written out per locale, e.g. `Okt. 2024 - Aug. 2027` / `Oct 2024 - Aug 2027`. */
+  period: string;
+  /** Work mode such as `Hybrid` or `Vor Ort`. */
+  mode?: string;
+  detail?: string;
+};
+
+export type CvEntry = {
+  id: string;
+  group: CvGroup;
+  /** Current grade on the German scale (1.0 is best), formatted per locale. */
+  grade?: number;
+  de: CvCopy;
+  en: CvCopy;
+};
+
 export type Dict = {
   meta: { title: string; description: string };
   a11y: {
@@ -45,6 +67,13 @@ export type Dict = {
   notFound: { metaTitle: string; heading: string; body: string; home: string };
   hero: { kicker: string; name: string; positioning: string; scroll: string };
   intro: { index: string; label: string; body: string; facts: Fact[] };
+  cv: {
+    index: string;
+    label: string;
+    groups: Record<CvGroup, string>;
+    gradeLabel: string;
+    gradeScale: string;
+  };
   projects: {
     index: string;
     label: string;
@@ -56,6 +85,6 @@ export type Dict = {
   };
   links: { index: string; label: string; linkedin: string; github: string };
   footer: { copyright: string; place: string };
-  sections: { start: string; intro: string; projects: string; links: string };
+  sections: { start: string; intro: string; cv: string; projects: string; links: string };
   domains: Record<Domain, string>;
 };

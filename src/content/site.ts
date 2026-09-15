@@ -32,11 +32,23 @@ const de: Dict = {
     label: 'Über mich',
     body: 'Ich studiere Informatik in Tübingen. Am meisten interessiert mich, was passiert, wenn moderne Machine Learning Modelle in Bereiche kommen, in denen es komplex wird und Fehler teuer sind - Finanzen, Recht, Medizin, etc. Parallel baue ich mit meinem Mitgründer die Tübingen Quant Society auf, eine studentische Initiative, die genau die Lücke zwischen Theorie und Praxis schließt.',
     facts: [
-      { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024 - heute' },
+      { label: 'Studium', value: 'B.Sc. Informatik, Universität Tübingen, 2024 - 2027' },
       { label: 'Rolle', value: 'Studentische Hilfskraft, Interfakultäres Institut für Biomedizinische Informatik (IBMI) Tübingen' },
       { label: 'Fokus', value: 'Quant Finance · Machine Learning · Interdisziplinäres ML' },
-      { label: 'Initiative', value: 'Tübingen Quant Society, Mitgründer' },
+      { label: 'Initiative', value: 'Tübingen Quant Society, Gründungspartner' },
     ],
+  },
+  cv: {
+    index: '03',
+    label: 'Lebenslauf',
+    groups: {
+      education: 'Ausbildung',
+      experience: 'Erfahrung',
+      engagement: 'Engagement',
+      awards: 'Auszeichnungen',
+    },
+    gradeLabel: 'Notenschnitt, aktuell',
+    gradeScale: 'Deutsche Notenskala, 1,0 ist die Bestnote',
   },
   projects: {
     index: '02',
@@ -48,13 +60,19 @@ const de: Dict = {
     defaultPendingNote: 'Das Repository wird bald veröffentlicht.',
   },
   links: {
-    index: '03',
+    index: '04',
     label: 'Kontakt',
     linkedin: 'LinkedIn',
     github: 'GitHub',
   },
   footer: { copyright: '© 2026 Armin Burkhardt', place: 'Tübingen' },
-  sections: { start: 'Start', intro: 'Über mich', projects: 'Projekte', links: 'Kontakt' },
+  sections: {
+    start: 'Start',
+    intro: 'Über mich',
+    cv: 'Lebenslauf',
+    projects: 'Projekte',
+    links: 'Kontakt',
+  },
   domains: { quant: 'Quant', ml: 'ML', law: 'Recht', access: 'Access' },
 };
 
@@ -90,11 +108,23 @@ const en: Dict = {
     label: 'About',
     body: 'I study computer science in Tübingen. What interests me most is what happens when modern machine learning models reach complex domains where mistakes are expensive - trading, law, medicine, etc. Alongside that I am building the Tübingen Quant Society with a fellow student, a student initiative that closes exactly that gap between theory and practice.',
     facts: [
-      { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024 - today' },
-      { label: 'Role', value: 'Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen' },
+      { label: 'Studies', value: 'B.Sc. Computer Science, University of Tübingen, 2024 - 2027' },
+      { label: 'Role', value: 'Student Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen' },
       { label: 'Focus', value: 'Quant Finance · Machine Learning · Interdisciplinary ML' },
-      { label: 'Initiative', value: 'Tübingen Quant Society, Co-Founder' },
+      { label: 'Initiative', value: 'Tübingen Quant Society, Founding Partner' },
     ],
+  },
+  cv: {
+    index: '03',
+    label: 'CV',
+    groups: {
+      education: 'Education',
+      experience: 'Experience',
+      engagement: 'Engagement',
+      awards: 'Awards',
+    },
+    gradeLabel: 'Current grade average',
+    gradeScale: 'German grading scale, where 1.0 is the top grade',
   },
   projects: {
     index: '02',
@@ -105,9 +135,9 @@ const en: Dict = {
     statusWip: 'In progress',
     defaultPendingNote: 'The repository is releasing soon.',
   },
-  links: { index: '03', label: 'Contact', linkedin: 'LinkedIn', github: 'GitHub' },
+  links: { index: '04', label: 'Contact', linkedin: 'LinkedIn', github: 'GitHub' },
   footer: { copyright: '© 2026 Armin Burkhardt', place: 'Tübingen' },
-  sections: { start: 'Start', intro: 'About', projects: 'Projects', links: 'Contact' },
+  sections: { start: 'Start', intro: 'About', cv: 'CV', projects: 'Projects', links: 'Contact' },
   domains: { quant: 'Quant', ml: 'ML', law: 'Law', access: 'Access' },
 };
 

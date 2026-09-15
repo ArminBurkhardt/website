@@ -30,6 +30,17 @@ test('intro renders the label and all four facts', async ({ page }) => {
 test('english intro uses translated fact labels', async ({ page }) => {
   await page.goto('/en');
   await expect(
-    page.getByText('Student Research Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen'),
+    page.getByText('Student Assistant, Institute for Bioinformatics and Medical Informatics (IBMI) Tübingen'),
   ).toBeVisible();
+});
+
+test('cv lists every entry and shows the grade in the locale format', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Lebenslauf' })).toBeVisible();
+  await expect(page.getByTestId('cv-entry')).toHaveCount(7);
+  await expect(page.getByTestId('grade')).toContainText('1,09');
+
+  await page.goto('/en');
+  await expect(page.getByTestId('grade')).toContainText('1.09');
+  await expect(page.getByTestId('grade').locator('data')).toHaveAttribute('value', '1.09');
 });
