@@ -26,14 +26,14 @@ export const cv: readonly CvEntry[] = [
     de: {
       title: `Studentische Hilfskraft`,
       org: `Interfakultäres Institut für Biomedizinische Informatik (IBMI), Universität Tübingen`,
-      period: `Aug. 2026 - heute`,
+      period: `2026`,
       mode: `Hybrid`,
       detail: `Betreuung von C++-Projekten in der Angewandten Bioinformatik.`,
     },
     en: {
       title: `Student Assistant`,
       org: `Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen`,
-      period: `Aug 2026 - present`,
+      period: `2026`,
       mode: `Hybrid`,
       detail: `Teaching assistant for C++ projects at the Faculty of Applied Bioinformatics.`,
     },
@@ -108,13 +108,13 @@ export const cv: readonly CvEntry[] = [
     de: {
       title: `Deutschlandstipendium`,
       org: `Universität Tübingen`,
-      period: `Sept. 2026`,
+      period: `Okt. 2026`,
       detail: `Leistungsstipendium für besonders begabte Studierende.`,
     },
     en: {
       title: `Deutschlandstipendium`,
       org: `University of Tübingen`,
-      period: `Sep 2026`,
+      period: `Oct 2026`,
       detail: `Merit-based national scholarship.`,
     },
   },
