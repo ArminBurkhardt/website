@@ -8,7 +8,7 @@ export const cv: readonly CvEntry[] = [
   {
     id: `bsc-informatik`,
     group: `education`,
-    grade: 1.09,
+    grade: 1.08,
     de: {
       title: `B.Sc. Informatik`,
       org: `Eberhard Karls Universität Tübingen`,
@@ -18,6 +18,22 @@ export const cv: readonly CvEntry[] = [
       title: `B.Sc. Computer Science`,
       org: `University of Tübingen`,
       period: `Oct 2024 - Aug 2027`,
+    },
+  },
+  {
+    id: `denkbox`,
+    group: `experience`,
+    de: {
+      title: `Machine Learning Engineer`,
+      org: `DenkBox GmbH, Cyber Valley`,
+      period: `Sept. 2026 - heute`,
+      detail: `Inferenz-Optimierung, RAG- und Agenten-Features sowie Fine-Tuning und Evaluation für einen datenschutzorientierten On-Premise LLM-Assistenten.`,
+    },
+    en: {
+      title: `Machine Learning Engineer`,
+      org: `DenkBox GmbH, Cyber Valley`,
+      period: `Sep 2026 - present`,
+      detail: `Inference optimization, RAG and agent features, fine-tuning and evaluation for a privacy-first, on-premise LLM assistant.`,
     },
   },
   {
@@ -31,7 +47,7 @@ export const cv: readonly CvEntry[] = [
       detail: `Betreuung von C++-Projekten in der Angewandten Bioinformatik.`,
     },
     en: {
-      title: `Student Assistant`,
+      title: `Student Teaching Assistant`,
       org: `Institute for Bioinformatics and Medical Informatics (IBMI), University of Tübingen`,
       period: `2026`,
       mode: `Hybrid`,
@@ -43,17 +59,17 @@ export const cv: readonly CvEntry[] = [
     group: `experience`,
     de: {
       title: `Studentische Hilfskraft`,
-      org: `Eberhard Karls Universität Tübingen`,
+      org: `Lehrstuhl für Eingebettete Systeme, Universität Tübingen`,
       period: `2025 - 2026`,
       mode: `Vor Ort`,
-      detail: `Tutor für die Lehrveranstaltung "Technische Informatik 3: Mikrorechnerpraktikum".`,
+      detail: `Tutor für "Technische Informatik 3: Mikrorechnerpraktikum": Betreuung im Labor, Bewertung der Laboraufgaben, hardwarenahe Programmierung.`,
     },
     en: {
-      title: `Student Assistant`,
-      org: `University of Tübingen`,
+      title: `Student Teaching Assistant`,
+      org: `Chair of Embedded Systems, University of Tübingen`,
       period: `2025 - 2026`,
       mode: `On site`,
-      detail: `Teaching assistant for the course "Technical Computer Science 3: Microcomputer Lab".`,
+      detail: `Tutor for "Computer Engineering 3: Microcomputer Lab": supervising students in the lab, grading lab assignments, low-level programming.`,
     },
   },
   {
@@ -74,14 +90,14 @@ export const cv: readonly CvEntry[] = [
     id: `novatec`,
     group: `experience`,
     de: {
-      title: `Praktikant`,
+      title: `Praktikant Softwareentwicklung`,
       org: `Novatec Consulting GmbH`,
       period: `2022`,
       mode: `Vor Ort`,
       detail: `Praktikum in der Softwareentwicklung mit Java.`,
     },
     en: {
-      title: `Intern`,
+      title: `Software Development Intern`,
       org: `Novatec Consulting GmbH`,
       period: `2022`,
       mode: `On site`,
@@ -92,14 +108,16 @@ export const cv: readonly CvEntry[] = [
     id: `tqs`,
     group: `engagement`,
     de: {
-      title: `Gründungspartner`,
+      title: `Vereinsvorstand`,
       org: `Tübingen Quant Society`,
       period: `Juli 2026 - heute`,
+      detail: `Mitgründer; verantwortlich für Konzept, Hochschulregistrierung und technische Infrastruktur.`,
     },
     en: {
-      title: `Founding Partner`,
+      title: `Executive Board Member`,
       org: `Tübingen Quant Society`,
       period: `Jul 2026 - present`,
+      detail: `Co-founder; responsible for the concept, university registration and technical infrastructure.`,
     },
   },
   {
