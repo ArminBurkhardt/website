@@ -62,8 +62,8 @@ carries a pending note.
 `src/content/cv.ts` holds the CV entries - education, experience, engagement and awards.
 Each entry names its `group` and carries `de`/`en` copy (`title`, `org`, `period`, optional
 `mode` and `detail`). List entries in group order, newest first within a group. The current
-grade sits on the education entry as `grade: 1.09` and is formatted per locale (`1,09` /
-`1.09`); update it there when it changes.
+grade sits on the education entry as `grade: 1.08` and is formatted per locale (`1,08` /
+`1.08`); update it there when it changes.
 
 ### Everything else
 
